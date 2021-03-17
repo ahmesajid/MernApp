@@ -1,0 +1,10 @@
+.higher-authorities-holder{
+    margin-right: auto;
+    margin-right: auto;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+}
+.higher-authorities-header, .higher-authorities-paragraph{
+    font-family: sans-serif;
+    letter-spacing: 1.5px;
+}

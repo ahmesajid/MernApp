@@ -1,0 +1,13 @@
+a {
+  color: #25282c;
+}
+.navbar .nav-item {
+  padding: 2vh 1vw;
+}
+.navbar .nav-link {
+  font-size: 15px;
+}
+.fa-bars {
+  color: #25282c;
+  font-size: 30px;
+}

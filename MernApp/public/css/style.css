@@ -1,0 +1,15 @@
+h1{
+    text-align: center;
+    color: brown;
+}
+.c-header{
+    color: red;
+    font-size: 1.5rem;
+    text-align: center;
+   
+}
+span{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}

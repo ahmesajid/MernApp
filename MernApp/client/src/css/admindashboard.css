@@ -1,0 +1,35 @@
+#bg {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #282c34;
+  position: absolute;
+  z-index: -1;
+}
+#verticalCenter {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.fa-utensils {
+  color: #282c34;
+  font-size: 8vh;
+  padding: 5vh 15vh 5vh 15vh;
+}
+.fa-user-shield {
+  color: #282c34;
+  font-size: 8vh;
+  padding: 5vh 15vh 5vh 15vh;
+}
+.child {
+  background-color: white;
+  border: white 1px solid;
+  border-radius: 0vh 5vh 5vh 5vh;
+  box-shadow: black 2px 5px 10px;
+}
+.child:hover {
+  transform: scale(1.05);
+}
