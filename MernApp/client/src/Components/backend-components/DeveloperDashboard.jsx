@@ -4,7 +4,7 @@ import DeleteRestaurant from "../delete/DeleteRestaurant";
 import AddBranch from "../forms/AddBranch";
 import DeleteBranch from "../delete/DeleteBranch";
 import HigherAuthorities from '../backend-components/HigherAuthorities';
-import '../../css/developerdashboard.css';
+import '../../css/sidenav.css';
 class Developer extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +20,8 @@ class Developer extends Component {
   render() {
     return (
       <>
-        <div className="container-fluid-fluid">
-          <div class="sidenav dev-left">
+        <div className="d-flex flex-row">
+          <div className="sidenav w-25">
             <br />
             <button className="btn btn-link" onClick={()=>this.setCount(1)}>
               <i class="fas fa-plus-circle"></i> Restaurant
@@ -52,7 +52,7 @@ class Developer extends Component {
             <br/>
 
           </div>
-          <div className="dev-right">
+          <div className="w-75">
             <div>{this.state.counter == 1 ? <AddRestaurant /> : 
             <div>{this.state.counter == 2 ? < DeleteRestaurant/> : 
             <div>{this.state.counter == 3 ? < AddBranch/> : 

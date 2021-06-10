@@ -64,7 +64,7 @@ class DeveloperSignIn extends Component {
     if(!this.state.isLoggedIn){
       return (
         <div className="holder">
-          <div className="container-fluid sign-in-container-fluid text-center center-vertical">
+          <div className="container sign-in-container-fluid text-center center-vertical">
           <form onSubmit={(e)=>this.submitFormData(e)}>
           <h1 className="add-new-style-header">Developer</h1>
             <br />

@@ -91,26 +91,26 @@ class AddRecipe extends Component {
     render() {
         return (
             <div>
-                <div className="container-fluid text-center mt-5 center-vertical">
+                <div className="container text-center  justify-content-center">
                 <h1 className='add-new-style-header center-horizontal'> Add A New Recipe  </h1>
                 <form onSubmit={this.addRecipe}>
-                    <div class="mt-5 form-group set-60vw center-horizontal">
+                    <div class="mt-5 form-group">
                         <input type="text"placeholder="Recipe Name" class="form-control" id="name" value={this.state.name} onChange={this.handleNameChange}/>
                     </div>
 
-                    <div class="form-group set-60vw center-horizontal">
+                    <div class="form-group center-horizontal">
                         <input type="text"placeholder="Recipe Description" class="form-control" id="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
                     </div>
                     
-                    <div class="form-group set-60vw center-horizontal">
+                    <div class="form-group w-50 center-horizontal">
                         <input type="number" placeholder="Recipe Price"step='50' min='50' max='any' class="form-control" id="price" value={this.state.price} onChange={this.handlePriceChange}/>
                     </div>
 
-                    <div class="form-group set-60vw center-horizontal">
+                    <div class="form-group w-50 center-horizontal">
                         <input type="number" placeholder="Recipe Quantity"step='0.5' min='0' max='any'class="form-control" id="quantity" value={this.state.quantity} onChange={this.handleQuantityChange}/>
                     </div>
 
-                    <div class="form-group set-60vw center-horizontal">
+                    <div class="form-group w-50 center-horizontal">
                         <input type="number"placeholder="Pieces/Plates (optional)"step='1' min='0'max='any' class="form-control" id="pieces" value={this.state.pieces} onChange={this.handlePiecesChange}/>
                     </div>
 

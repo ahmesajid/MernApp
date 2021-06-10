@@ -3,6 +3,7 @@ import AddRecipe from "../forms/AddRecipe";
 import DeleteRecipe from "../delete/DeleteRecipe";
 import BranchProfile from "../backend-components/BranchProfile"
 import ChangePassword from '../backend-components/ChangePassword'
+import '../../css/sidenav.css';
 import '../../css/admindashboard.css';
 class Manager extends Component {
   constructor(props) {
@@ -18,8 +19,8 @@ class Manager extends Component {
   }
   render() {
     return (
-        <div className="container-fluid-fluid m-3" id="main_body">
-          <div id="mySidenav" class="sidenav">
+        <div className="container-fluid">
+          <div class="sidenav">
             <br />
             <button className="btn btn-link" onClick={()=>this.setCount(1)}>
               <i class="fas fa-users"></i> Profile
@@ -38,7 +39,7 @@ class Manager extends Component {
             <button className="btn btn-link" onClick={this.props.logout}>Logout</button>
           </div>
 
-          <div className="right">
+          <div className="dev-right">
             <div>{this.state.counter == 1 ? <BranchProfile /> : 
             <div>{this.state.counter == 2 ? <AddRecipe bData={this.props.bData}/> : 
             <div>{this.state.counter == 3 ? <DeleteRecipe bData={this.props.bData}/> : 

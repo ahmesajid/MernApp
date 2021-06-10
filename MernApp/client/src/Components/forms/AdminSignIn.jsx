@@ -73,7 +73,7 @@ class AdminSignIn extends Component {
     if(!this.state.isLoggedIn){
       return (
         <div className="holder">
-          <div className="container-fluid sign-in-container-fluid text-center">
+          <div className="container sign-in-container-fluid text-center">
           <form onSubmit={(e)=>this.submitFormData(e)}>
           <h1 className="add-new-style-header">Admin</h1>
             <br />

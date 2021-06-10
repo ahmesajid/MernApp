@@ -223,7 +223,7 @@ addBranch=(e)=>{
           </div>
           {/* BRANCH NAME */}
           <div class="row mt-3">
-            <div class="set-60vw center-horizontal">
+            <div class="col-8 center-horizontal">
               <input
                 type="text"
                 class="form-control"
@@ -236,7 +236,7 @@ addBranch=(e)=>{
           </div>
           {/* DESCRIPTION */}
           <div class="row mt-3">
-            <div class="set-60vw center-horizontal">
+            <div class="col-8 center-horizontal">
               <textarea
                 class="form-control"
                 id="description"
@@ -249,7 +249,7 @@ addBranch=(e)=>{
           </div>
           {/* EMAIL */}
           <div class="row mt-3">
-            <div class="set-60vw center-horizontal">
+            <div class="col-8 center-horizontal">
               <input
                 type="email"
                 class="form-control"
@@ -261,7 +261,7 @@ addBranch=(e)=>{
           </div>
           {/* CONTACT */}
           <div class="row mt-3">
-            <div class="set-60vw center-horizontal">
+            <div class="col-8 center-horizontal">
               <input
                 type="number"
                 class="form-control"
@@ -273,7 +273,7 @@ addBranch=(e)=>{
           </div>
           {/* SELECT RESTAURANT */}
           <div class="row mt-3">
-            <div class="set-60vw center-horizontal form-group">
+            <div class="col-8 center-horizontal form-group">
               <select id="custom-select-1" class="form-control">
                 {
                   this.state.restaurants.map((r,i)=>(
@@ -285,7 +285,7 @@ addBranch=(e)=>{
           </div>
            {/* SELECT CITY */}
            <div class="row mt-3">
-            <div class="set-60vw center-horizontal form-group">
+            <div class="col-8 center-horizontal form-group">
               <h5>Select city for restaurant:</h5>
               <select id="custom-select-2" class="form-control">
               {
@@ -298,13 +298,13 @@ addBranch=(e)=>{
           </div>
           {/* OPENS */}
           <div class="row mt-3">
-            <div className="set-60vw center-horizontal">
+            <div className="col-8 center-horizontal">
               <input type="time"  name="open" id='open'value={this.state.opens} onChange={this.handleOpenChange}/>
             </div>
           </div>
           {/* CLOSES */}
           <div class="row mt-3">
-            <div className="set-60vw center-horizontal">
+            <div className="col-8 center-horizontal">
               <input type="time" name="close" id='close'value={this.state.closes} onChange={this.handleCloseChange}/>
             </div>
           </div>

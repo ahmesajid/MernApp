@@ -59,7 +59,7 @@ class DeleteRecipe extends Component {
 
     return (
       <div>
-        <div className="container-fluid mt-5">
+        <div className="container mt-5">
           <h1 className='add-new-style-header center-horizontal'>Delete Recipe</h1>
         <form className="mt-5">
           <div className="row">

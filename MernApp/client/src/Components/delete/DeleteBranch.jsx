@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios'
 import $ from "jquery"; 
 import "../../css/clock.css";
+import '../../css/deleteBranch.css';
 class Branch extends Component {
   constructor(props) {
     super(props);
@@ -95,7 +96,8 @@ componentDidMount=()=>{
 
   render() {
     return (
-        <div className="container-fluid-fluid w-75 mx-auto text-center mt-5"> 
+        <div className="container w-75 mx-auto vertical-center"> 
+        <h1>Delete Branches</h1>
         <form onSubmit={(e)=>this.deleteBranch(e)}>
             <div class="form-group" className="mt-3">
                 <select class="form-control" id="custom-select-restaurant" onChange={this.changeRestaurantBranches}>
@@ -119,12 +121,9 @@ componentDidMount=()=>{
                 </select>
             </div>  
 
-            <button
-            type="submit"
-            class="btn btn-dark btn-lg mb-3 mt-3"
-          >
-            Delete This Branch
-          </button>
+            <div className="d-flex justify-content-center" > 
+                <button type="submit" class="btn btn-dark btn-lg mb-3 mt-3" >   Delete This Branch </button>
+            </div>
         </form>
     </div>
     );

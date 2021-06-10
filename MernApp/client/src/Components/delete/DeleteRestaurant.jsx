@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import '../../css/deleteRestaurant.css';
 class DeleteRestaurant extends Component {
   constructor(props) {
     super(props);
@@ -58,8 +59,9 @@ deleteRestaurant(e){
   render() {
     return (
       <div>
-        <div className="container-fluid-fluid mt-5">
+        <div className="container vertical-center">
           <form className="mt-5 w-75 mx-auto">
+          <h1>Delete Restaurants</h1>
             <div className="row">
               <div class="form-group">
                 <select class="form-control"id="custom-select-1">
@@ -73,7 +75,7 @@ deleteRestaurant(e){
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <button onClick={this.deleteRestaurant} class="btn btn-dark ">
+              <button onClick={this.deleteRestaurant} class="btn btn-lg btn-dark ">
                 Delete This Restaurant
               </button>
             </div>

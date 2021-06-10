@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios'
+import '../../css/deleteRestaurant.css';
 class Restaurant extends Component {
   constructor(props) {
     super(props);
@@ -95,12 +96,12 @@ handlePhoneChange(e){
 }
   render() {
     return (
-      <div className="container-fluid text-center mt-5">
+      <div className="container text-center vertical-center">
         <form onSubmit={(e)=>this.addRestaurant(e)}>
         <h1 className="add-new-style-header">Add A New Restaurant</h1>
           <br />
-          <div class="row mt-3">
-            <div class="col-8 center-horizontal">
+          <div class="row mt-3 mx-auto">
+            <div class="col-8 mx-auto">
               <div className="show-image">
                   {this.state.file[0].filename?<img  style={{width:250,height:250}}  src={`/Images/Restaurants/${this.state.file[0].filename}`}/>:""}
               </div>
@@ -110,8 +111,8 @@ handlePhoneChange(e){
               
             </div>
           </div>
-          <div class="row mt-3">
-            <div class="col-8 center-horizontal">
+          <div class="row mt-3 ">
+            <div class="col-8 mx-auto">
               <input
                 type="text"
                 class="form-control"
@@ -122,7 +123,7 @@ handlePhoneChange(e){
             </div>
           </div>
           <div class="row mt-3">
-            <div class="col-8 center-horizontal">
+            <div class="col-8 mx-auto">
               <input
                 type="email"
                 class="form-control"
@@ -134,7 +135,7 @@ handlePhoneChange(e){
           </div>
 
           <div class="row mt-3">
-            <div class="col-8 center-horizontal">
+            <div class="col-8 mx-auto">
               <input
                 type="number"
                 class="form-control"
@@ -145,7 +146,7 @@ handlePhoneChange(e){
             </div>
           </div>
           <div class="row mt-3">
-            <div class="col-8 center-horizontal">
+            <div class="col-8 mx-auto">
               <textarea
                 class="form-control"
                 id="exampleFormControlTextarea1"

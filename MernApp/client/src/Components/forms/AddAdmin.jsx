@@ -148,27 +148,27 @@ componentDidMount=()=>{
     return (
         <div className="container-fluid text-center mt-5"> 
         <form onSubmit={(e)=>this.AddBranchAdmin(e)}>
-            <div class="form-group"className="set-60vw center-horizontal mt-3">
+            <div class="form-group"className="col-8 center-horizontal mt-3">
                 <input type="text" placeholder="Admin Name"class="form-control" id="name" value={this.state.name} onChange={this.handleNameChange}/>
             </div>
 
-            <div class="form-group"className="set-60vw center-horizontal mt-3">
+            <div class="form-group"className="col-8 center-horizontal mt-3">
                 <input type="number"placeholder="Admin Number" class="form-control" id="phone" value={this.state.phone} onChange={this.handlePhoneChange}/>
             </div>
 
-            <div class="form-group" className="set-60vw center-horizontal mt-3">
+            <div class="form-group" className="col-8 center-horizontal mt-3">
                 <input type="email" placeholder="Admin Email" class="form-control" id="email" value={this.state.email} onChange={this.handleEmailChange}/>
             </div>
 
-            <div class="form-group" className="set-60vw center-horizontal mt-3">
+            <div class="form-group" className="col-8 center-horizontal mt-3">
                 <input type="number" placeholder="Admin CNIC"class="form-control" id="cnic" value={this.state.cnic} onChange={this.handleCnicChange}/>
             </div>
 
-            <div class="form-group" className="set-60vw center-horizontal mt-3">
+            <div class="form-group" className="col-8 center-horizontal mt-3">
                 <input type="password" placeholder="Admin Password"class="form-control" id="password" value={this.state.password} onChange={this.handlePasswordChange}/>
             </div>
 
-            <div class="form-group" className="set-60vw center-horizontal mt-3">
+            <div class="form-group" className="col-8 center-horizontal mt-3">
                 <label for="sel2">Select City Where Admin Belongs To:</label>
                 <select class="form-control" id="custom-select-admin-city">
                     <option selected>Cities</option>
@@ -180,7 +180,7 @@ componentDidMount=()=>{
                 </select>
             </div>
 
-            <div class="form-group" className="set-60vw center-horizontal mt-3">
+            <div class="form-group" className="col-8 center-horizontal mt-3">
                 <select class="form-control" id="custom-select-restaurant" onChange={this.changeRestaurantBranches}>
                     <option>Restaurants</option>
                     {
@@ -191,7 +191,7 @@ componentDidMount=()=>{
                 </select>
             </div>
 
-            <div class="form-group" className="set-60vw center-horizontal mt-3">
+            <div class="form-group" className="col-8 center-horizontal mt-3">
                 <select class="form-control" id="custom-select-branches">
                     <option>Branches</option>
                     {

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/developerdashboard.css";
+import "../../css/sidenav.css";
 import "../../css/clock.css";
 import { NavLink } from "react-router-dom";
 

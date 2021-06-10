@@ -102,10 +102,10 @@ class HigherAuthorities extends Component {
         return (
             <>
                 
-                <div className=" higher-authorities-holder"> 
+                <div className=" higher-authorities-holder w-50 mx-auto"> 
                     <h1 className="higher-authorities-header">Note</h1>
                     <p className="higher-authorities-paragraph">Do these operations carefully , these can't be undone.</p>
-                    <div className="d-flex flex-column w-50 justify-content-center align-content-center mx-auto">
+                    <div className="d-flex flex-column justify-content-center align-content-center mx-auto">
                         <button className="btn btn-lg btn-danger m-2 shadow-sm" onClick={this.deleteAllRestaurants}>Delete All Restaurants</button>
                         <button className="btn btn-lg btn-danger m-2 shadow-sm" onClick={this.deleteAllBranches}>Delete All Branches</button>
                         <button className="btn btn-lg btn-danger m-2 shadow-sm" onClick={this.deleteAllAdmins}>Delete All Admins</button>
