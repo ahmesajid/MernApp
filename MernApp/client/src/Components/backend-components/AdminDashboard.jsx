@@ -19,8 +19,8 @@ class Manager extends Component {
   }
   render() {
     return (
-        <div className="container-fluid">
-          <div class="sidenav">
+      <div className="d-flex flex-row">
+          <div class="sidenav w-25">
             <br />
             <button className="btn btn-link" onClick={()=>this.setCount(1)}>
               <i class="fas fa-users"></i> Profile
@@ -39,7 +39,7 @@ class Manager extends Component {
             <button className="btn btn-link" onClick={this.props.logout}>Logout</button>
           </div>
 
-          <div className="dev-right">
+          <div className="w-75 right">
             <div>{this.state.counter == 1 ? <BranchProfile /> : 
             <div>{this.state.counter == 2 ? <AddRecipe bData={this.props.bData}/> : 
             <div>{this.state.counter == 3 ? <DeleteRecipe bData={this.props.bData}/> : 

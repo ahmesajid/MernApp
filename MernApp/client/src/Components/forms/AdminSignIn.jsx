@@ -22,7 +22,7 @@ class AdminSignIn extends Component {
   submitFormData=(e)=>{
     e.preventDefault();
     try {
-      axios.post('/admin/signin',{gmail:this.state.email,password:this.state.password,getData:1})
+      axios.post('/admin/signin',{gmail:this.state.email,password:this.state.password,getData:1,getData:1})
   .then((data)=>{
       if(data.data.status === "error")
       {
@@ -30,7 +30,6 @@ class AdminSignIn extends Component {
       }
       else if(data.data.status === 1)
       {
-        alert("data recieved and logged in")
         this.setState({
           isLoggedIn:1,
           bData:data.data.bData
@@ -105,11 +104,14 @@ class AdminSignIn extends Component {
         </div>
       );
     }else{
-      return (
-        <>
-          <AdminDashboard logout={this.logoutAdmin} bData={this.state.bData}/>
-        </>
-      )
+      if(this.state.bData){
+        return (
+          <>
+            <AdminDashboard logout={this.logoutAdmin} bData={this.state.bData}/>
+          </>
+        )
+      }
+      
     }
   }
 }

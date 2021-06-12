@@ -32,6 +32,8 @@ router.post("/admin/signin" ,async(req,res)=>{
         const isBranchAdmin = await BranchAdmin.countDocuments({gmail:req.body.gmail ,password:req.body.password});
         let aData = null;
         let bData = null;
+        console.log(isBranchAdmin);
+
         if(isBranchAdmin>0)
         {
             if(req.body.getData)

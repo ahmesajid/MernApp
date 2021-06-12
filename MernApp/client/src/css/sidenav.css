@@ -34,10 +34,10 @@
     overflow-x: hidden;
     /* background-color: #e9e3e3; */
   }
-  /* .sidenav {
+  .sidenav {
     position: fixed;
     background-color: rgb(3, 85, 54);
-  } */
+  }
   .sidenav .btn {
     text-decoration: none;
     font-size: 17px;
@@ -99,4 +99,8 @@
 }
 .add-shadow{
   box-shadow: 10px 10px 25px grey;
+}
+.right{
+  overflow-y: scroll;
+  margin-left: 25vw;
 }

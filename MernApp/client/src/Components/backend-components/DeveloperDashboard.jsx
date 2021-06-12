@@ -52,7 +52,7 @@ class Developer extends Component {
             <br/>
 
           </div>
-          <div className="w-75">
+          <div className="w-75 right">
             <div>{this.state.counter == 1 ? <AddRestaurant /> : 
             <div>{this.state.counter == 2 ? < DeleteRestaurant/> : 
             <div>{this.state.counter == 3 ? < AddBranch/> : 

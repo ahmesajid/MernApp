@@ -5,6 +5,8 @@ const path = require("path");
 const multer = require("multer");
 
 const Branches = require('../models/branch');
+const Recommendations = require('../models/recommendations');
+
 fNames = null;
 router.post("/branch/addImages", (req,res)=>{
     const storage = multer.diskStorage({

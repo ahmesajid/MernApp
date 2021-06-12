@@ -51,6 +51,10 @@ const branchSchema = new mongoose.Schema({
         type:Date ,
         default:Date.now
     },
+    location:{
+        type:String,
+        required:true,
+    },
     fNames:[{
         type:String,
         required:true

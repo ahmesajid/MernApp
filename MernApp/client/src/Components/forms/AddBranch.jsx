@@ -12,6 +12,7 @@ class Branch extends Component {
       name:"",
       email:"",
       description:"",
+      location:"",
       city:"",
       opens:"",
       closes:"",
@@ -27,6 +28,7 @@ class Branch extends Component {
     this.handleOpenChange  =this.handleOpenChange.bind(this);
     this.handleCloseChange  =this.handleCloseChange.bind(this);
     this.handlePhoneChange  =this.handlePhoneChange.bind(this);
+    this.handleLocationChange  =this.handleLocationChange.bind(this);
     
   }
   cities = ["Lahore" , "Islamabad" , "Karachi" , "Fiasalabad","Multan"];
@@ -100,6 +102,11 @@ class Branch extends Component {
 handleDescriptionChange(e){
     this.setState({
         description:e.target.value
+    })
+}
+handleLocationChange(e){
+    this.setState({
+        location:e.target.value
     })
 }
 handleEmailChange(e){
@@ -268,6 +275,18 @@ addBranch=(e)=>{
                 placeholder="Branch Contact Number"
                 value={this.state.phone}
                 onChange={this.handlePhoneChange}
+              />
+            </div>
+          </div>
+          {/* LOCATION IFRAME STRING */}
+          <div class="row mt-3">
+            <div class="col-8 center-horizontal">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Location Iframe String"
+                value={this.state.location}
+                onChange={this.handleLocationChange}
               />
             </div>
           </div>

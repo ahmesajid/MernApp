@@ -41,7 +41,6 @@ class HigherAuthorities extends Component {
             }
             else if(data.data.status===1)
             {
-                alert(data.data.status)
                 alert("All branches deleted!")
             }
             else if(data.data.status===2){
