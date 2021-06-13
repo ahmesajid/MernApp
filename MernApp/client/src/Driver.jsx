@@ -17,6 +17,7 @@ class Driver extends Component {
                     <Route exact path="/momentum" component={PannelSide} />
                     <Route exact path="/developersignIn" component={PannelSide} />
                     <Route exact path="/adminsignIn" component={PannelSide} />
+                    <Route exact path="/create-issue" component={UserSide} />
                 </Switch>
                
             </div>

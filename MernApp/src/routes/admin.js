@@ -43,8 +43,9 @@ router.post("/admin/signin" ,async(req,res)=>{
                 console.log(aData)
                 console.log(bData)
                 res.send({
-                    status:1,
-                    bData:bData 
+                    status:1 ,
+                    bData:bData ,
+                    aData:aData
                 });
             }
             res.send({

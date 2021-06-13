@@ -8,7 +8,8 @@ class AdminSignIn extends Component {
       email:"",
       password:"",
       isLoggedIn:0,
-      bData:[{}]
+      bData:[{}],
+      aData:[{}]
     }
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -32,9 +33,10 @@ class AdminSignIn extends Component {
       {
         this.setState({
           isLoggedIn:1,
-          bData:data.data.bData
+          bData:data.data.bData,
+          aData:data.data.aData
         })
-        console.log(data.data.bData)
+        console.log(data.data);
       }
       else if(data.data.status === 0)
       {
@@ -104,10 +106,10 @@ class AdminSignIn extends Component {
         </div>
       );
     }else{
-      if(this.state.bData){
+      if(this.state.bData && this.state.bData){
         return (
           <>
-            <AdminDashboard logout={this.logoutAdmin} bData={this.state.bData}/>
+            <AdminDashboard logout={this.logoutAdmin} bData={this.state.bData} aData={this.state.aData}/>
           </>
         )
       }

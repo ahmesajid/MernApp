@@ -7,6 +7,7 @@ import Restaurants from './RestaurantListShow'
 import AboutUs from './AboutUs'
 import ContactUs from './ContactUs'
 import PrivacyPolicy from './PrivacyPolicy'
+import CreateIssue from '../forms/CreateIssue';
 function NavBar() {
   return (
     <>
@@ -57,6 +58,11 @@ function NavBar() {
               <li class="nav-item">
                 <Link class="nav-link" to="/Contact-Us">
                   Contact Us
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" to="/Create-Issue">
+                  Create Issue
                 </Link>
               </li>
             </ul>

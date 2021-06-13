@@ -7,6 +7,7 @@ import AboutUs from '../frontend-components/AboutUs'
 import PrivacyPolicy from '../frontend-components/PrivacyPolicy'
 import NavBar from '../frontend-components/NavBar'
 import Footer from '../frontend-components/Footer'
+import CreateIssue from '../forms/CreateIssue';
 class UserSide extends Component {
     render() {
         return (
@@ -19,6 +20,7 @@ class UserSide extends Component {
                     <Route exact path="/about-us" component={AboutUs} />
                     <Route exact path="/contact-us" component={ContactUs} />
                     <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+                    <Route exact path="/create-issue" component={CreateIssue} />
                 </Switch>
                 <Footer/>
             </div>

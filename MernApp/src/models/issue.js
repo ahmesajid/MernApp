@@ -7,6 +7,21 @@ const issueSchema = new mongoose.Schema({
         minlength:10,
         required:true
     },
+    email:{
+    type:String,
+    lowercase:true,
+    unique:true,
+    required:true,
+    validate(email){
+        if(!validator.isEmail(email))
+        {
+            throw new error ("Not a valid email");
+        }
+    }},
+    title:{
+        type:String,
+        require:true
+    },
     isOpen:{
         type:Boolean ,
         default:true
