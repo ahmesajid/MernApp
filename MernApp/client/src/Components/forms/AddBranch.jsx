@@ -155,7 +155,8 @@ addBranch=(e)=>{
         closes:this.state.closes,
         contact:this.state.phone,
         p_id:pId,
-        fNames:fileNames
+        fNames:fileNames,
+        location:this.state.location
     };
 
       //SENDING POST REQUEST
