@@ -4,6 +4,8 @@ import DeleteRestaurant from "../delete/DeleteRestaurant";
 import AddBranch from "../forms/AddBranch";
 import DeleteBranch from "../delete/DeleteBranch";
 import HigherAuthorities from '../backend-components/HigherAuthorities';
+import ManagerReport from '../backend-components/ManagerReport';
+import UserReport from '../backend-components/UserReport';
 import '../../css/sidenav.css';
 class Developer extends Component {
   constructor(props) {
@@ -40,10 +42,10 @@ class Developer extends Component {
               Higher Authorities
             </button>
             <br/>
-            <button className="btn btn-link">
+            <button className="btn btn-link" onClick={()=>this.setCount(6)}>
               Manager Report
             </button>
-            <button className="btn btn-link">
+            <button className="btn btn-link" onClick={()=>this.setCount(7)}>
               User Report
             </button>
             <button className="btn btn-link" onClick={this.props.logout}>
@@ -58,7 +60,11 @@ class Developer extends Component {
             <div>{this.state.counter == 3 ? < AddBranch/> : 
             <div>{this.state.counter == 4 ? < DeleteBranch/> : 
             <div>{this.state.counter == 5 ? < HigherAuthorities/> : 
+            <div>{this.state.counter == 6 ? < ManagerReport/> : 
+            <div>{this.state.counter == 7 ? < UserReport/> : 
             <h1 className="center text-muted">See left pannel for navigation</h1>}</div>
+            }</div>
+            }</div>
             }</div>
             }</div>
             }</div>

@@ -32,6 +32,81 @@ router.post("/issue/post" ,async(req,res)=>{
         });
     }
     })
+router.get("/issue/get/admin" ,async(req,res)=>{
+    //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
+    try {
+        const isAnyIssue = await Issues.countDocuments({isAdmin:true,isOpen:true});
+        if(isAnyIssue){
+            const allAdminIssues = await  Issues.find({isAdmin:true,isOpen:true});
+            res.send({
+                status:1,
+                issues:allAdminIssues
+            }) 
+        }
+        else{
+            res.send({
+                status:-1,
+                message:"No admin issue in database"
+            })
+        }
+    } catch (error) {
+        console.log("Error occured getting admin issue : " + error);
+        res.send({
+            status:0,
+            message:"Error occured getting admin issue "
+        });
+    }
+    })
+router.get("/issue/get/user" ,async(req,res)=>{
+    //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
+    try {
+        const isAnyIssue = await Issues.countDocuments({isUser:true,isOpen:true});
+        if(isAnyIssue){
+            const allUserIssues = await  Issues.find({isUser:true,isOpen:true});
+            res.send({
+                status:1,
+                issues:allUserIssues
+            }) 
+        }
+        else{
+            res.send({
+                status:-1,
+                message:"No user issue in database"
+            })
+        }
+    } catch (error) {
+        console.log("Error occured getting user issue : " + error);
+        res.send({
+            status:0,
+            message:"Error occured getting user issue "
+        });
+    }
+    })
+router.get("/issue/get" ,async(req,res)=>{
+    //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
+    try {
+        const isAnyIssue = await Issues.countDocuments();
+        if(isAnyIssue){
+            const allIssues = await  Issues.find();
+            res.send({
+                status:1,
+                issues:allIssues
+            }) 
+        }
+        else{
+            res.send({
+                status:-1,
+                message:"No issue in database"
+            })
+        }
+    } catch (error) {
+        console.log("Error occured getting an issue : " + error);
+        res.send({
+            status:0,
+            message:"Error occured getting an issue "
+        });
+    }
+    })
 router.delete("/issue/deleteAll" ,async (req,res)=>{
  //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
  try {
