@@ -22,6 +22,7 @@ class Rest extends Component {
   })
   }
 showHome(id){
+  
   this.setState({
       isParent :false ,
       isChild :true ,
@@ -99,9 +100,9 @@ render() {
     );
   }else if(this.state.isChild){
    return(
-     <div>
+     <div className="bg-light">
        <SelectBranch
-      resId = {this.state.restaurantId}/>
+      resId = {this.state.restaurantId} />
      </div>
    ) 
   }

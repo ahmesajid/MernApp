@@ -40,6 +40,8 @@ app.use('/' ,issueRouter);
 //IMPORT ADMIN ROUTER
 var adminRouter = require('./routes/admin');
 const bodyParser = require("body-parser");
+
+
 app.use('/' ,adminRouter);
 
 app.listen(port , ()=>console.log(`Server is listening at port : ${port}\n`));

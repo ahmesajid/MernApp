@@ -126,7 +126,7 @@ createIssue(e){
               />
             </div>
           </div>
-          <button type="submit"class="btn btn-dark btn-lg mb-3 mt-3">Add Restaurant</button>
+          <button type="submit"class="btn btn-dark btn-lg mb-3 mt-3">Create An Issue</button>
         </form>
       </div>
     );

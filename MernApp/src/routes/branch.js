@@ -6,6 +6,7 @@ const multer = require("multer");
 
 const Branches = require('../models/branch');
 const Recommendations = require('../models/recommendations');
+const Reservation = require('../models/reservation');
 
 fNames = null;
 router.post("/branch/addImages", (req,res)=>{
@@ -47,10 +48,10 @@ router.delete("/branch/deleteAll" ,async(req,res)=>{
         }
         
     } catch (error) {
-        console.log("Error occured deleting all branches : " + error);
+        console.log("Error occured adding all branches : " + error);
         res.send({
             status:0,
-            message:"Error occured deleting all branches!**"
+            message:"Error occured adding all branches!**"
         });
     }
     })
@@ -122,6 +123,45 @@ router.post("/branch/delete" , async(req,res)=>{
         res.send({
             status:"error",
             message:"Error ocured adding branch !**"
+        });
+    }
+    });
+router.post("/branch/add/reservation" , async(req,res)=>{
+
+    try {
+        const resData = new Reservation(req.body) ;
+        const insertedData = await resData.save();
+        console.log(insertedData);
+        res.send({
+            status:1,
+            message:"Your reservation has been made!"
+        });
+        
+    } catch (error) {
+        console.log("Error ocured adding a new reservation : " + error);
+        res.send({
+            status:0,
+            message:"Error ocured adding a new reservation !**"
+        });
+    }
+    });
+router.get("/branch/get/reservation/all" , async(req,res)=>{
+
+    try {
+        const resData = await Reservation.find() ;
+        console.log(resData);
+        res.send({
+            status:1,
+            message:"All the reservations fetched successfully!",
+            reservations:resData
+        });
+        
+    } catch (error) {
+        console.log("Error ocured getting a new reservation : " + error);
+        res.send({
+            status:0,
+            message:error,
+            resData:null
         });
     }
     });

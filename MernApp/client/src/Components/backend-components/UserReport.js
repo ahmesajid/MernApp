@@ -45,23 +45,25 @@ class ManagerReport extends Component {
                         User Open Issues {this.state.issueCount?<><span style={{color:'green'}}>({this.state.issueCount})</span></>:<><span style={{color:'red'}}>({this.state.issueCount})</span></>}
                     </h1>
                 </div>
-                <div className="row ">
+                <div>
                     {
                         this.state.issueCount?
                         this.state.userIssues.map((issue,index)=>(
-                            <div className="col-md-6">
                                 <div className="d-flex flex-column bg-dark text-white p-1 m-3 rounded" >
                                     <div className="d-flex flex-row justify-content-between p-1 m-1"> 
-                                        <div>
-                                            <h3><p style={{letterSpacing:2}}>Issue #{index+1}</p></h3>
+                                        <div className="d-flex flex-row">
+                                            <div className="bg-success rounded p-2"><h3><p style={{letterSpacing:2}}>Issue #{index+1}</p></h3></div>
+                                            <div className="m-1 p-1 text-muted" style={{alignItems:'flex-end'}}>
+                                                <p>created by <span style={{color:'blue'}}>{issue.email}</span></p>
+                                            </div>
                                         </div>
+                                        
                                         <div>
                                             <button type="button" className="btn btn-md btn-danger">Close Issue</button>
                                         </div>
                                     </div>
                                     <div className="mx-auto p-2"> <p style={{letterSpacing:1.5}}>{issue.description}</p></div>
                                     <div className="ml-auto p-2 text-muted"> <p>{issue.time}</p></div>
-                            </div>
                             </div>
                         )):
                         <></>
