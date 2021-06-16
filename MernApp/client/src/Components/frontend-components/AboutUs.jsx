@@ -2,13 +2,14 @@ import React from "react";
 import x from "../../images/a.jpg";
 import y from "../../images/Bilal (1).jpg";
 import z from "../../images/a.jpg";
-import ahmer from '../../images/ahmer.jpg'
+import ahmer from "../../images/ahmer.jpg";
 
 function About() {
   return (
     <>
       <div className="container-fluid  mt-5 mb-2">
         <h3 style={{ fontSize: "30px" }}>About Us</h3>
+
         <hr />
         <div className="mt-5">
           <p className="lead text-justify mt-1" style={{ fontSize: "15px" }}>

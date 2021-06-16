@@ -1,8 +1,10 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import AddRestaurant from "../forms/AddRestaurant";
 import DeleteRestaurant from "../delete/DeleteRestaurant";
 import AddBranch from "../forms/AddBranch";
 import DeleteBranch from "../delete/DeleteBranch";
+
+import D_Dashboard from "./D_Dashboard";
 import HigherAuthorities from '../backend-components/HigherAuthorities';
 import ManagerReport from '../backend-components/ManagerReport';
 import UserReport from '../backend-components/UserReport';
@@ -12,15 +14,16 @@ class Developer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       counter:0,
       isAuthenticated:false,
       display:0, //DISPLAY 0 (SHOWS NOTHING) 1 SHOWS TO AUTHENTICATE FIRST 3 SHOWS DEV PANNEL
     }
   }
-  setCount(count){
+  setCount(count) {
     this.setState({
-      counter:count
-    })
+      counter: count,
+    });
   }
   getData= async()=>{
     // YOU CAN RUN 1 OR 2 BOTH ARE CORRECT
@@ -55,6 +58,10 @@ class Developer extends Component {
           <div className="d-flex flex-row">
             <div className="sidenav w-25">
               <br />
+              <button className="btn btn-link" onClick={() => this.setCount(8)}>
+                Dashboard
+              </button>
+               <br />
               <button className="btn btn-link" onClick={()=>this.setCount(1)}>
                 <i class="fas fa-plus-circle"></i> Restaurant
               </button>
@@ -86,13 +93,16 @@ class Developer extends Component {
             </div>
             <div className="w-75 right">
               <div>{this.state.counter == 1 ? <AddRestaurant /> : 
+                    
               <div>{this.state.counter == 2 ? < DeleteRestaurant/> : 
               <div>{this.state.counter == 3 ? < AddBranch/> : 
               <div>{this.state.counter == 4 ? < DeleteBranch/> : 
               <div>{this.state.counter == 5 ? < HigherAuthorities/> : 
               <div>{this.state.counter == 6 ? < ManagerReport/> : 
-              <div>{this.state.counter == 7 ? < UserReport/> : 
+              <div>{this.state.counter == 7 ? < UserReport/> :
+               <div>{this.state.counter == 8 ? <D_Dashboard /> :
               <h1 className="center text-muted">See left pannel for navigation</h1>}</div>
+              }</div>
               }</div>
               }</div>
               }</div>
