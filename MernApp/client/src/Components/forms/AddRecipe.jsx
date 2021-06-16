@@ -13,7 +13,8 @@ class AddRecipe extends Component {
             quantity:null,
             pieces:null,
             parentRestaurantDetails:"",
-            gmail:""
+            gmail:"",
+            b_id:this.props.bData[0]._id
         }
 
         this.handleNameChange  =this.handleNameChange.bind(this);
@@ -58,7 +59,7 @@ class AddRecipe extends Component {
             price:this.state.price,
             description:this.state.description,
             pieces:this.state.pieces,
-            p_id:this.props.bData[0]._id,
+            p_id:this.state.b_id,
         };
         console.log(addRecipe);
 
@@ -84,21 +85,17 @@ class AddRecipe extends Component {
             console.log(error);
         }
     }
-    componentDidMount=()=>{
-      
-      console.log(this.props.bData[0]._id)
-    }
     render() {
         return (
             <div>
-                <div className="container text-center  justify-content-center">
+                <div className="container text-center mt-5 justify-content-center">
                 <h1 className='add-new-style-header center-horizontal'> Add A New Recipe  </h1>
                 <form onSubmit={this.addRecipe}>
-                    <div class="mt-5 form-group">
+                    <div class="mt-5 w-50 form-group mx-auto">
                         <input type="text"placeholder="Recipe Name" class="form-control" id="name" value={this.state.name} onChange={this.handleNameChange}/>
                     </div>
 
-                    <div class="form-group center-horizontal">
+                    <div class="form-group w-50 center-horizontal">
                         <input type="text"placeholder="Recipe Description" class="form-control" id="description" value={this.state.description} onChange={this.handleDescriptionChange}/>
                     </div>
                     

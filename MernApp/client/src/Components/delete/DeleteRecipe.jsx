@@ -38,16 +38,17 @@ class DeleteRecipe extends Component {
   componentDidMount=()=>{
     axios.post('/recipe/get',{p_id:this.props.bData[0]._id})
     .then((data)=>{
-        if(data.data.status == "error")
+        if(!data.data.status)
         {
             // alert(data.data.message);
             console.log(data.data.message);
         }
-        else if(data.data.status == "ok")
+        else if(data.data.status)
         {
           this.setState({
-            recData:data.data.resData
+            resData:data.data.resData
           })
+          console.log(data.data.resData)
         }
     })
     .catch((e)=>{
@@ -63,13 +64,13 @@ class DeleteRecipe extends Component {
           <h1 className='add-new-style-header center-horizontal'>Delete Recipe</h1>
         <form className="mt-5">
           <div className="row">
-          <div class="set-60vw center-horizontal">
+          <div class="w-50 center-horizontal">
               <select class="form-control" id="custom-select">
                 <option selected value={0}>Select Recipe</option>
-                {
-                  this.state.recData.map(d=>(
-                  <option selected value={d._id}>{d.name}</option>
-                  ))
+                {this.state.resData?
+                  this.state.resData.map(d=>(
+                  <option value={d._id}>{d.name}</option>
+                  )):<></>
                 }
               </select>
             </div>

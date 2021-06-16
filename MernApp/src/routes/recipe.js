@@ -67,16 +67,14 @@ router.post("/recipe/get" ,async(req,res)=>{
             if(recipeData.length){
                 res.send({
                     status:1 ,
-                    recData:recipeData
+                    resData:recipeData
                 });
             }
             else{
                 res.send({
-                    status:-1
+                    status:0
                 });
             }
-            
-        
     } catch (error) {
         console.log("Error occured getting recipes : " + error);
         res.send({

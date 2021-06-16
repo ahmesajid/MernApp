@@ -60,6 +60,10 @@ router.delete("/branch/deleteAll" ,async(req,res)=>{
         });
     }
     })
+router.get("/branches/get" , async (req,res)=>{
+    const branches = await Branches.find();
+    res.send({branches});
+})
 router.post("/branch/getdetails" , async(req,res)=>{
     console.log(req.body._id);
     let bData = null;

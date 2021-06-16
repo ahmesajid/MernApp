@@ -2,7 +2,7 @@ var express = require("express");
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const SuperAdmin = require('../models/admin/superAdmin');
-
+const authenticateDeveloper =require('../Middleware/AuthenticateDeveloper') ;
 router.post("/developer/signup" , async(req,res)=>{
     try {
         const insertedDataObj = new SuperAdmin(req.body);
@@ -33,8 +33,6 @@ try {
             expires:false,
             maxAge:86400000
         });
-        console.log("token.....")
-        console.log(req.cookies['isDevSignIn']);
         res.send({
             status:1,
             message:"Developer logged in!"
@@ -48,6 +46,7 @@ try {
     }
 } catch (error) {console.log(error)}
 });
+
 router.get("/developer/all" , async(req,res)=>{
 try {
     const developers = await SuperAdmin.find();
@@ -64,6 +63,10 @@ try {
         });
     }
 } catch (error) {console.log(error)}
+});
+router.post("/developer/validate" ,authenticateDeveloper, async(req,res)=>{
+    console.log("/developer/validate");
+    res.send({isAuthenticated:req.isAuthenticated});
 });
 
 module.exports = router;
