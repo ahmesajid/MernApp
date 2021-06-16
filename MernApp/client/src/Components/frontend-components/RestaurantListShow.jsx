@@ -64,38 +64,19 @@ componentDidMount=()=>{
 render() {
   if(this.state.isParent){
     return (
-      <div>
-        <div className="container-fluid mt-5">
-          <h1>Restaurants</h1>
-          <hr />
-        </div>
+      <div className="container mt-3 p-2 bg-light">
+          <div className="d-flex justify-content-center mb-4"><span style={{letterSpacing:2,fontFamily:'sans-serif',fontSize:40,color:'darkslategrey',fontWeight:'bold'}}>Restaurant Cards</span></div>
+            <div className="row justify-content-around">
               {this.state.restaurantData.map((rs) => (
-                <div className="single-restaurant-list mt-3" id={rs._id} onClick={this.showHome.bind(this , rs._id)}>
-                  <div className="d-flex restaurant-flex flex-row">
-                    <div className="restaurant-list-photo p-3">
-                      <div className="restaurant-image-box">
-                        <img class="restaurant-list-img" src={`/Images/Restaurants/${rs.fName}`} />
-                      </div>
-                    </div>
-                    <div className="restaurant-list-details p-3">
-                      <div className="d-flex flex-column ">
-                        <div className="d-flex flex-row align-items-center">
-                          <div className="name p2">
-                            <h2>
-                                {rs.name}
-                            </h2>
-                            <hr />
-                          </div>
-                        </div>
-                        <div className="mt-0">
-                          <p className="text-muted pt-2">{rs.description}</p>
-                        </div>
-                      </div>
-                    </div>
+                <div class="col-md-3 p-2 m-2 shadow bg-dark text-white card rounded" style={{width:'30rem'}} style={{cursor:'pointer'}}>
+                  <img class="card-img-top border-dark" src={`/Images/Restaurants/${rs.fName}`} alt="Card image cap" id={rs._id} onClick={this.showHome.bind(this , rs._id)}/>
+                  <div class="card-body">
+                    <h2 className="res-name-hover" style={{letterSpacing:2,fontFamily:'sans-serif'}}>{rs.name}</h2>
+                    <p class="card-text" style={{letterSpacing:1}}>{rs.description}</p>
                   </div>
                 </div>
               ))}
-        <br />
+          </div>
       </div>
     );
   }else if(this.state.isChild){

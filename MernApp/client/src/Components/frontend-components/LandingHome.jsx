@@ -27,10 +27,10 @@ function Home() {
           and we will take care of the rest!
         </p>
       </div>
-      <div className="container-fluid mt-5">
+      <div className="container mt-5">
         <div className="row">
           <div className="col-8">
-            <i class="fas fa-memory fa-4x"></i>
+            <i class="fas fa-memory fa-4x fav-slide"></i>
             <h2>Manage all Restaurant Reservations with ease.</h2>
             <br />
             <p>
@@ -43,7 +43,7 @@ function Home() {
           <div className="col-4 d-flex justify-content-center">
             <img
               src={x}
-              className="mt-4"
+              className="mt-4 image-rotate"
               alt="Logo"
               width="200vw"
               height="200vh"

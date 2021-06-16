@@ -11,7 +11,7 @@ function Footer() {
           backgroundColor: "#26272b",
           color: "white",
           position:"relative",
-          marginTop:"42.2vh"
+          marginBottom:"0"
         }}
       >
         <div className="row">

@@ -114,81 +114,44 @@ class Select_Branch extends Component {
   render() {
     if(!this.state.showDetails){
     return (
-      <div className="d-flex container justify-content-center flex-column  mx-auto p-2 m-2">
-
-        {/* IMAGE DIV */}
-        <div className="d-flex  mx-auto  w-100 justify-content-center p-2 m-2" >
-          <img src={`/Images/Restaurants/${this.state.resData[0].fName}`} alt="restaurant-logo" height="30%" width="50%" />
-        </div>
-
-        {/* NAME DIV */}
-        <div className=" mx-auto justify-content-center p-2 m2">
-          <h2 style={{letterSpacing:1.5,fontFamily:'cursive'}}>  {this.state.resData[0].name}</h2>
-        </div>
-        <hr/>
-
-        {/* FILTER DIV */}
-        <div className="d-flex flex-column mx-auto justify-content-center p-2 m2">
+      <div className="d-flex justify-content-center m-3 p-3">
+        <div class="card m-2 rounded shadow p-2" style={{width:'50rem'}}>
+        <img class="card-img-top" src={`/Images/Restaurants/${this.state.resData[0].fName}`} alt="Card image cap"/>
+        <div class="card-body">
+          <h5 class="card-title text-center" style={{fontWeight:'bold' , fontFamily:"sans-serif",letterSpacing:1.5,fontSize:35}} >{this.state.resData[0].name}</h5>
+          <p class="card-text"></p>
           <form>
             <div class=" form-group">
               <select
               name="city"
-                class="form-control custom-select"
+                class="form-control custom-select rounded shadow"
                 id="custom-select-1"
-                onChange={this.getChangeBehaviour}
-                style={{
-                  borderTopLeftRadius: "50px",
-                  borderTopRightRadius: "50px",
-                  borderBottomRightRadius: "50px",
-                  borderBottomLeftRadius: "50px",
-                  width: "45vw",
-                }}
-              >
+                onChange={this.getChangeBehaviour}>
                 <option value={0}>Select restaurant city</option>
-                {
-                  this.state.cities.map(c=>(
-                  <option>{c.city}</option>
-                  ))
-                }
+                {this.state.cities.map(c=>(
+                  <option>{c.city}</option>))}
               </select>
               <br />
               <select
-                class="form-control custom-select mt-3"
+                class="form-control custom-select mt-3 rounded shadow"
                 id="custom-select-2"
-                name="branch"
-                style={{
-                  borderTopLeftRadius: "50px",
-                  borderTopRightRadius: "50px",
-                  borderBottomRightRadius: "50px",
-                  borderBottomLeftRadius: "50px",
-                  width: "45vw"
-                }}
-              >
+                name="branch">
                 <option value={0}>Select restaurant branch</option>
-                {
-                  this.state.branches.map(b=>(
+                {this.state.branches.map(b=>(
                   <option value={b._id}>{b.name}</option>
-                  ))
-                }
+                  ))}
               </select>
               <br />
               <button
                 type="button"
-                class="btn btn-dark btn-lg mt-3"
-                onClick={this.seeBranchDetails}
-                style={{
-                  borderTopLeftRadius: "50px",
-                  borderTopRightRadius: "50px",
-                  borderBottomRightRadius: "50px",
-                  borderBottomLeftRadius: "50px",
-                  width: "45vw",
-                }}
-              >
+                class="btn btn-secondary btn-block mt-3 rounded shadow"
+                onClick={this.seeBranchDetails}>
                 See Branch Details
               </button>
             </div>
           </form>
         </div>
+      </div>
       </div>
     );
     }
