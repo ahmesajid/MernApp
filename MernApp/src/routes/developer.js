@@ -1,4 +1,5 @@
-var express = require("express")
+var express = require("express");
+const jwt = require('jsonwebtoken');
 var router = express.Router();
 const SuperAdmin = require('../models/admin/superAdmin');
 
@@ -20,11 +21,20 @@ router.post("/developer/signup" , async(req,res)=>{
     }
     });
 router.post("/developer/signin" , async(req,res)=>{
-    console.log(req.body);
+    var token;
 try {
-    const isSuperAdmin = await SuperAdmin.countDocuments({gmail:req.body.gmail ,password:req.body.password});
-    if(isSuperAdmin>0)
-    {
+    console.log(req.body);
+    const {gmail , password} = req.body;
+    const isSuperAdmin = await SuperAdmin.findOne({gmail,password});
+    if(isSuperAdmin){
+        token = await isSuperAdmin.generateAuthToken();
+        console.log(token);
+        res.cookie("isDevSignIn",token,{
+            expires:false,
+            maxAge:86400000
+        });
+        console.log("token.....")
+        console.log(req.cookies['isDevSignIn']);
         res.send({
             status:1,
             message:"Developer logged in!"
@@ -36,9 +46,24 @@ try {
             message:"Invalid developer credentials!**"
         });
     }
-} catch (error) {
-    
-}
+} catch (error) {console.log(error)}
+});
+router.get("/developer/all" , async(req,res)=>{
+try {
+    const developers = await SuperAdmin.find();
+    if(developers){
+        res.send({
+            status:1,
+            developers
+        });
+    }
+    else{
+        res.send({
+            status:0,
+            message:"Error fetching all developers!**"
+        });
+    }
+} catch (error) {console.log(error)}
 });
 
 module.exports = router;

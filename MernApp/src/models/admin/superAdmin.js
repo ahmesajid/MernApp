@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator= require("validator");
-
+const jwt = require('jsonwebtoken');
 const superAdminSchema = new mongoose.Schema({
     name:{
         type:String ,
@@ -39,8 +39,26 @@ const superAdminSchema = new mongoose.Schema({
     time:{
         type:Date ,
         default:Date.now
-    }
+    },
+    tokens:[
+        {
+            token:{
+                type:String,
+                required:true
+            }
+        }
+    ]
 });
+superAdminSchema.methods.generateAuthToken = async function (){
+    try {
+            let token =  jwt.sign({_id:this._id},process.env.SECRET_KEY);
+            this.tokens = this.tokens.concat({token:token});
+            await this.save();
+            return token;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 //CREATING NEW MODEL CLASS OF STUDENTS

@@ -9,6 +9,7 @@ const reservationSchema = new mongoose.Schema({
     gmail:{
         type:String,
         lowercase:true,
+        required:true,
         validate(email){
             if(!validator.isEmail(email))
             {
