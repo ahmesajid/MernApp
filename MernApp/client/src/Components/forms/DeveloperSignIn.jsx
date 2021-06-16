@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import DeveloperDashboard from '../backend-components/DeveloperDashboard'
+import Image from '../../images/imagination-3685048_1280.png';
 class DeveloperSignIn extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +67,8 @@ class DeveloperSignIn extends Component {
         <div className="holder">
           <div className="container sign-in-container-fluid text-center center-vertical">
           <form onSubmit={(e)=>this.submitFormData(e)}>
-          <h1 className="add-new-style-header">Developer</h1>
+            <h1 className="add-new-style-header">Developer Sign In</h1>
+            <img src={Image} height="25%" width='15%'/>
             <br />
             <div class="row mt-3">
               <div class="set-40vw center-horizontal">

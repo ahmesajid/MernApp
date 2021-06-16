@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const BranchAdmin = require("../models/admin/branchAdmin");
 const Branches = require('../models/branch');
+const authenticateAdmin = require('../Middleware/AuthenticateAdmin');
+const jwt = require("jsonwebtoken");
 router.delete("/admin/deleteAll" ,async(req,res)=>{
     //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
     try {
@@ -28,28 +30,24 @@ router.delete("/admin/deleteAll" ,async(req,res)=>{
 router.post("/admin/signin" ,async(req,res)=>{
     //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
     try {
-        console.log(req.body);
-        const isBranchAdmin = await BranchAdmin.countDocuments({gmail:req.body.gmail ,password:req.body.password});
-        let aData = null;
-        let bData = null;
+        const {gmail , password} = req.body;
+        let aData ,bData ,token ,isBranchAdmin = null;
+        isBranchAdmin = await BranchAdmin.countDocuments({gmail,password});
         console.log(isBranchAdmin);
 
-        if(isBranchAdmin>0)
+        if(isBranchAdmin)
         {
-            if(req.body.getData)
-            {
-                aData = await BranchAdmin.find({gmail:req.body.gmail ,password:req.body.password});
-                bData = await Branches.find({_id:aData[0].branch_id});
-                console.log(aData)
-                console.log(bData)
-                res.send({
-                    status:1 ,
-                    bData:bData ,
-                    aData:aData
-                });
-            }
+            aData = await BranchAdmin.findOne({gmail,password});
+            bData = await Branches.find({_id:aData.branch_id});
+            token = await aData.generateAuthToken();
+            res.cookie("isAdminSignIn",token,{
+                expires:false,
+                maxAge:86400000
+            });
             res.send({
-                status:2
+                status:1 ,
+                bData:bData ,
+                aData:aData
             });
         }
         else{
@@ -84,4 +82,25 @@ router.post("/admin/signup" , async(req,res)=>{
         });
     }
     });
+router.get("/admin/get" , async(req,res)=>{
+    try {
+        const admins =await BranchAdmin.find({});
+        res.send({
+            admins:admins,
+        });
+        
+    } catch (error) {
+        console.log("Error ocured adding branch admin : " + error);
+        res.send({
+            status:"error",
+            message:"Error ocured adding branch admin!**"
+        });
+    }
+    });
+router.post("/admin/validate" ,authenticateAdmin, async(req,res)=>{
+    console.log("/admin/validate");
+    aData = await BranchAdmin.findOne({_id:req._id});
+    bData = await Branches.find({_id:aData.branch_id});
+    res.send({isAuthenticated:req.isAuthenticated ,aData:aData,bData:bData});
+});
 module.exports = router;

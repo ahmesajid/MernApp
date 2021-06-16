@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import AdminDashboard from '../backend-components/AdminDashboard'
+import AdminDashboard from '../backend-components/AdminDashboard';
+import Image from '../../images/imagination-3685048_1280.png';
 class AdminSignIn extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +77,8 @@ class AdminSignIn extends Component {
         <div className="holder">
           <div className="container sign-in-container-fluid text-center">
           <form onSubmit={(e)=>this.submitFormData(e)}>
-          <h1 className="add-new-style-header">Admin</h1>
+          <h1 className="add-new-style-header">Admin Sign In</h1>
+            <img src={Image} height="25%" width='15%'/>
             <br />
             <div class="row mt-3">
               <div class="set-40vw center-horizontal">

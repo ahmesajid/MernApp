@@ -18,6 +18,9 @@ class Driver extends Component {
                     <Route exact path="/developersignIn" component={PannelSide} />
                     <Route exact path="/adminsignIn" component={PannelSide} />
                     <Route exact path="/create-issue" component={UserSide} />
+                    <Route exact path="/developerdashboard" component={PannelSide} />
+                    <Route exact path="/admindashboard" component={PannelSide} />
+                    <Route exact path="/loginpannel" component={PannelSide} />
                 </Switch>
                
             </div>

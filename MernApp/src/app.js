@@ -6,6 +6,9 @@ const path = require("path");
 app.use(express.static(path.join(__dirname,'../public'))); 
 const port = process.env.PORT || 8000;
 require("./db/conn");
+require('dotenv').config();
+const cookieParser = require('cookie-parser'); 
+app.use(cookieParser());
 // const bodyParser = require("body-parser");
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({
