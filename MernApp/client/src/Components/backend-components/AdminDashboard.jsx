@@ -15,16 +15,14 @@ class Manager extends Component {
       aData:[{}],
       bData:[{}],
       isAuthenticated:false,
+      adminId:null,
       display:0, //DISPLAY 0 (SHOWS NOTHING) 1 SHOWS TO AUTHENTICATE FIRST 3 SHOWS DEV PANNEL
     }
+    
+
   }
   componentDidMount(){
     this.getData();
-    if(this.props.aData){
-        this.setState({
-            aData:this.props.aData
-        })
-    }
 }
 getData= async()=>{
   // YOU CAN RUN 1 OR 2 BOTH ARE CORRECT
@@ -37,8 +35,9 @@ getData= async()=>{
         isAuthenticated:data.data.isAuthenticated,
         display:2,
         aData:data.data.aData,
-        bData:data.data.bData});
-        console.log(data.data);
+        bData:data.data.bData,
+        adminId:data.data.bData[0]._id});
+
       }
     else{this.setState({isAuthenticated:data.data.isAuthenticated,display:1});}
     
@@ -59,13 +58,13 @@ setCount(count){
   })
 }
   render() {
-    const {display} = this.state ;
+    const {display , adminId} = this.state ;
     if(display===2){
     return (
       <div className="d-flex flex-row">
           <div class="sidenav w-25">
             <br />
-            <button className="btn btn-link" onClick={()=>this.setCount(1)}>
+            <button className="btn btn-link" onClick={()=>this.setCount(1)} >
               <i class="fas fa-users"></i> Profile
             </button>
             <br />
@@ -86,7 +85,7 @@ setCount(count){
           </div>
 
           <div className="w-75 right">
-            <div>{this.state.counter == 1 ? <BranchProfile /> : 
+            <div>{this.state.counter == 1 ? <BranchProfile adminId={adminId}/> : 
             <div>{this.state.counter == 2 ? <AddRecipe bData={this.state.bData}/> : 
             <div>{this.state.counter == 3 ? <DeleteRecipe bData={this.state.bData}/> : 
             <div>{this.state.counter == 4 && this.state.aData? <CreateIssue aData={this.state.aData}/> :

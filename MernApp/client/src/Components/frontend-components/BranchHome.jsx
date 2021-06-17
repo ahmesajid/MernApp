@@ -20,6 +20,7 @@ class Branch_Show extends Component {
       number: null,
       time: null,
       date: null,
+      isImageLoaded:false,
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -27,6 +28,7 @@ class Branch_Show extends Component {
     this.handlePersonChange = this.handlePersonChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+  
   }
   handleDateChange(e) {
     this.setState({
@@ -87,27 +89,10 @@ class Branch_Show extends Component {
     } catch (error) {
       console.log(error);
     }
-    //   try {
-    //     axios.post('/branch/addImages' , formData , config)
-    //     .then((data)=>{
-    //       if(data.data.status){
-    //         alert("Images added successfuly!");
-    //         this.setState({
-    //           addedImages:data.data.files,
-    //           isImagesAdded:true
-    //         } , ()=>console.log(data.data.files))}
-    //     })
-    //     .catch((e)=>{
-    //         console.log(e);
-    //     });
-    //  }
-    //  catch (error) {
-    //     console.log(error);
-    //   }
+    
   }
   componentDidMount = () => {
-    axios
-      .post("/branch/getdetails", { _id: this.state.selectedBranch })
+    axios.post("/branch/getdetails", { _id: this.state.selectedBranch })
       .then((data) => {
         if (!data.data.status) {
           console.log(data.data.message);
@@ -133,18 +118,16 @@ class Branch_Show extends Component {
         alert(e);
         console.log(e);
       });
-    axios
-      .post("/recipe/get", { p_id: this.state.selectedBranch })
+    axios.post("/recipe/get", { p_id: this.state.selectedBranch })
       .then((data) => {
         if (!data.data.status) {
-          // alert(data.data.message);
           console.log(data.data.message);
         } else if (data.data.status === 1) {
           this.setState({
-            recipes: data.data.recData,
+            recipes: data.data.resData,
             isRecipe: 1,
           });
-          console.log(data.data.recData);
+          console.log(data.data.resData);
         } else if (data.data.status === -1) {
           this.setState({
             isRecipe: -1,
@@ -158,9 +141,9 @@ class Branch_Show extends Component {
   };
 
   render() {
-    return (
-      <div style={{ fontFamily: "cursive" }}>
-        <>
+    return (<>
+        
+      <div>
           <div id="restaurent" class="mt-2 carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               {this.state.imgArr.map((fn) => (
@@ -175,6 +158,7 @@ class Branch_Show extends Component {
                       <img
                         class="hero-img"
                         src={`/Images/Branches/${fn.fName}`}
+                        
                       />
                     </div>
                     <div class="carousel-caption">
@@ -376,7 +360,7 @@ class Branch_Show extends Component {
               </div>
             </div>
           </div>
-        </>
+        
 
         <div
           class="modal fade"
@@ -486,6 +470,7 @@ class Branch_Show extends Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }

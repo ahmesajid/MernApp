@@ -1,16 +1,29 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "../../css/D_Dashboard.css";
 import i from "../../images/Bezier.svg";
 import Chart from "react-apexcharts";
 import { CalendarComponent } from "@syncfusion/ej2-react-calendars";
-
+import style from '../../css/D_Dashboard.module.css';
+import axios from 'axios';
+import { data } from "jquery";
 export default class D_Dashboard extends React.Component {
+  // var =null;
   constructor(props) {
     super(props);
-    this.state = [
+    this.state = {
+      isLoaded:null,
+      restaurantCount:null,
+      branchesCount:null,
+      userIssueCount:null,
+      managerIssueCount:null,
+      reservationsCount:null,
+      openIssuesCount:null,
+      closedIssuesCount:null,
+      openIssuesPercentage:null,
+      closedIssuesPercentage:null,
+      options:[
       {
-        series: [70],
+        series: [67],
         options: {
           chart: {
             height: 280,
@@ -50,7 +63,7 @@ export default class D_Dashboard extends React.Component {
         },
       },
       {
-        series: [70],
+        series: [33],
         options: {
           chart: {
             height: 280,
@@ -112,13 +125,45 @@ export default class D_Dashboard extends React.Component {
             data: [30, 20, 30, 50, 75, 28, 79],
           },
         ],
-      },
-    ];
+      }, 
+      {
+        restaurantCount:5,
+      }
+    ]};
+    
+  }
+  componentDidMount(){
+    try {
+      axios.get('/counts/all')
+      .then((res)=>{
+        if(res.data){
+          this.setState({
+            isLoaded:true,
+            restaurantCount:res.data.restaurantCount,
+            branchesCount:res.data.branchesCount,
+            userIssueCount:res.data.userIssueCount,
+            managerIssueCount:res.data.managerIssueCount,
+            reservationsCount:res.data.reservationsCount,
+            openIssuesCount:res.data.openIssuesCount,
+            closedIssuesCount:res.data.closedIssuesCount,
+            openIssuesPercentage:res.data.openIssuesPercentage,
+            closedIssuesPercentage:res.data.closedIssuesPercentage,
+          })
+          
+        }
+      })
+      .catch(err=>console.log(err))
+    } catch (error) {
+      console.log(error);
+    }
   }
   render() {
+    const {isLoaded} = this.state;
+    if(isLoaded){
     return (
       <>
         <main>
+        
           <div class="main__container">
             <div class="main__title">
               <img src={i} alt="" />
@@ -128,52 +173,51 @@ export default class D_Dashboard extends React.Component {
             </div>
 
             <div class="main__cards">
-              <div class="card">
+              <div class={style.card}>
                 <i
                   class="fas fa-cookie fa-2x text-lightblue"
                   aria-hidden="true"
                 ></i>
                 <div class="card_inner">
-                  <p class="text-primary-p">Total Restaurant</p>
-                  <span class="font-bold text-title">888</span>
+                  <p class="text-primary-p ">Total Restaurants : {this.state.restaurantCount}</p>
+                  <span class="font-bold text-title"> </span>
                 </div>
               </div>
 
-              <div class="card">
+              <div class={style.card}>
                 <i
                   class="fas fa-project-diagram fa-2x text-lightblue"
                   aria-hidden="true"
                 ></i>
                 <div class="card_inner">
-                  <p class="text-primary-p">Restaurant Branches</p>
-                  <span class="font-bold text-title">467</span>
+                  <p class="text-primary-p">Total Branches : {this.state.branchesCount}</p>
+                  <span class="font-bold text-title"></span>
                 </div>
               </div>
 
-              <div class="card">
+              <div class={style.card}>
                 <i class="fas fa-bug fa-2x text-green" aria-hidden="true"></i>
                 <div class="card_inner">
-                  <p class="text-primary-p">Manager's Report Issue</p>
-                  <span class="font-bold text-title">340</span>
+                  <p class="text-primary-p">Manager's Report Issues : {this.state.managerIssueCount}</p>
+                  <span class="font-bold text-title"></span>
                 </div>
               </div>
 
-              <div class="card">
+              <div class={style.card}>
                 <i
                   class="fas fa-exclamation-triangle fa-2x text-green"
                   aria-hidden="true"
                 ></i>
                 <div class="card_inner">
-                  <p class="text-primary-p">User's Report Issue</p>
-                  <span class="font-bold text-title">645</span>
+                  <p class="text-primary-p">User's Report Issues : {this.state.userIssueCount}</p>
+                  <span class="font-bold text-title"></span>
                 </div>
               </div>
 
-              <div class="card">
+              <div class={style.card}>
                 <i class="fas fa-box-tissue fa-2x " aria-hidden="true"></i>
                 <div class="card_inner">
-                  <p class="text-primary-p">Total Reservations</p>
-                  <span class="font-bold text-title">645</span>
+                  <p class="text-primary-p">Total Reservations : {this.state.reservationsCount}</p>
                 </div>
               </div>
             </div>
@@ -187,8 +231,8 @@ export default class D_Dashboard extends React.Component {
                     </div>
                   </div>
                   <Chart
-                    options={this.state[2].options}
-                    series={this.state[2].series}
+                    options={this.state.options[2].options}
+                    series={this.state.options[2].series}
                     type="bar"
                   />
                 </div>
@@ -202,14 +246,14 @@ export default class D_Dashboard extends React.Component {
                   </div>
                   <div>
                     <Chart
-                      options={this.state[0].options}
-                      series={this.state[0].series}
+                      options={this.state.options[0].options}
+                      series={this.state.openIssuesPercentage}
                       type="radialBar"
                       height={165}
                     />
                     <Chart
-                      options={this.state[1].options}
-                      series={this.state[1].series}
+                      options={this.state.options[1].options}
+                      series={this.state.closedIssuesPercentage}
                       type="radialBar"
                       height={165}
                     />
@@ -342,6 +386,10 @@ export default class D_Dashboard extends React.Component {
           </div>
         </div>
       </>
-    );
+    );}else{
+      return(<div style={{fontFamily:"sans-serif", letterSpacing:1 , textAlign:"center" , marginTop:'50vh' , color:"green"}}>
+        <h3>Loading...</h3>
+      </div>)
+    }
   }
 }

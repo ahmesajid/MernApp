@@ -99,8 +99,13 @@ router.get("/admin/get" , async(req,res)=>{
     });
 router.post("/admin/validate" ,authenticateAdmin, async(req,res)=>{
     console.log("/admin/validate");
-    aData = await BranchAdmin.findOne({_id:req._id});
-    bData = await Branches.find({_id:aData.branch_id});
-    res.send({isAuthenticated:req.isAuthenticated ,aData:aData,bData:bData});
+    let aData , bData =null;
+    if(req.isAuthenticated){
+        aData = await BranchAdmin.findOne({_id:req._id});
+        bData = await Branches.find({_id:aData.branch_id});
+    }
+    
+    req.isAuthenticated? res.send({isAuthenticated:req.isAuthenticated ,aData:aData,bData:bData}):res.send({isAuthenticated:false})
+   
 });
 module.exports = router;

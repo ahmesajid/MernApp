@@ -129,4 +129,19 @@ router.delete("/issue/deleteAll" ,async (req,res)=>{
     });
 }
 })
+router.post("/issue/close" ,async (req,res)=>{
+ //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
+ const {issueId} = req.body;
+ try {
+    const updateIssueToClose = await Issues.update({_id:issueId} , {$set:{isOpen:false}}); 
+    console.log(updateIssueToClose);
+    res.send({message:"Issue updated successfully!"})
+} catch (error) {
+    console.log("Error occured updating an issues : " + error);
+    res.send({
+        status:0,
+        message:"Error occured updating an issues!**"
+    });
+}
+})
 module.exports = router;

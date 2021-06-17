@@ -51,7 +51,8 @@ const superAdminSchema = new mongoose.Schema({
 });
 superAdminSchema.methods.generateAuthToken = async function (){
     try {
-            let token =  jwt.sign({_id:this._id},process.env.SECRET_KEY);
+            let secretKey = process.env.SECRET_KEY || 'MYNAMEISAHMERBINSAJIDFROMPUNJABUNIVERSITYTHEMALLL';
+            let token =  jwt.sign({_id:this._id},secretKey);
             this.tokens = this.tokens.concat({token:token});
             await this.save();
             return token;

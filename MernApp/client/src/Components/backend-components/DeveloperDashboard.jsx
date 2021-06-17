@@ -4,7 +4,7 @@ import DeleteRestaurant from "../delete/DeleteRestaurant";
 import AddBranch from "../forms/AddBranch";
 import DeleteBranch from "../delete/DeleteBranch";
 
-import D_Dashboard from "./D_Dashboard";
+import D_Dashboard from "../backend-components/D_Dashboard";
 import HigherAuthorities from '../backend-components/HigherAuthorities';
 import ManagerReport from '../backend-components/ManagerReport';
 import UserReport from '../backend-components/UserReport';

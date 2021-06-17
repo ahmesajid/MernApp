@@ -8,7 +8,7 @@ const nodemailer = require("nodemailer");
 const {google} = require('googleapis');
 
 const Branches = require('../models/branch');
-const Recommendations = require('../models/recommendations');
+const Restaurants = require('../models/restaurant');
 const Reservation = require('../models/reservation');
 const { oauth2 } = require("googleapis/build/src/apis/oauth2");
 
@@ -91,13 +91,22 @@ router.post("/branch/getdetails" , async(req,res)=>{
 router.post("/branch/add" ,async(req,res)=>{
     //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
     try {
+        //p_id in req.body
         console.log(req.body);
         const branchData = new Branches(req.body) ;
         const getCountEmails =  await Branches.count({gmail:req.body.gmail});
         if(getCountEmails==0)
         {
             const insertedData = await branchData.save();
-            console.log(insertedData);
+            const incrementRestaurantBranchesCount = await Restaurants.findOneAndUpdate({_id:req.body.p_id} , {$inc:{branches:1}}).exec((err,res)=>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    console.log("branch added and updated branches count in restaurants")
+                }
+            })
+            console.log(incrementRestaurantBranchesCount);
             res.send({
                 status:"ok"
             });
@@ -123,6 +132,15 @@ router.post("/branch/delete" , async(req,res)=>{
         Branches.deleteMany({p_id:req.body.pId  , _id:req.body.bId} , (e)=>{
         console.log(e);
         });
+        const decrementRestaurantBranchesCount = await Restaurants.findOneAndUpdate({_id:req.body.pId} , {$inc:{branches:-1}}).exec((err,res)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log("branch deleed and updated branches count in restaurants")
+            }
+        })
+        console.log(decrementRestaurantBranchesCount);
         res.send({
             status:"ok",
         });
@@ -202,6 +220,38 @@ router.post("/branch/add/reservation" , async(req,res)=>{
         res.send({
             status:0,
             message:"Error ocured adding a new reservation !**"
+        });
+    }
+    });
+router.post("/reservation/get/id" , async(req,res)=>{
+    
+    const {id} = req.body;
+    console.log(id);
+    try {
+        const resData = await Reservation.find({b_id:id}) ;
+        console.log(resData);
+        if(resData.length){    
+            console.log("All the reservations fetched successfully!");
+            res.send({
+                status:1,
+                message:"All the reservations fetched successfully!",
+                reservationData:resData
+            });
+        }else{
+            res.send({
+                status:0,
+                message:error,
+                reservationData:null
+            });
+        }
+        
+        
+    } catch (error) {
+        console.log("Error ocured getting a reservations : " + error);
+        res.send({
+            status:0,
+            message:error,
+            reservations:null
         });
     }
     });

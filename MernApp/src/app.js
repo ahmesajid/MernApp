@@ -26,7 +26,7 @@ app.use('/' , restaurantRouter);
 
 //IMPORT RECIPES ROUTER
 var recipeRouter = require('./routes/recipe');
-app.use('/' ,recipeRouter);
+app.use('/' ,recipeRouter );
 
 // IMPORT DEVELOPER ROUTER
 var developerRouter = require('./routes/developer')
@@ -42,9 +42,10 @@ app.use('/' ,issueRouter);
 
 //IMPORT ADMIN ROUTER
 var adminRouter = require('./routes/admin');
-const bodyParser = require("body-parser");
+app.use('/',adminRouter);
 
-
-app.use('/' ,adminRouter);
+//USING GLOBAL ROUTER
+var globalRouter = require('./routes/global');
+app.use('/' ,globalRouter);
 
 app.listen(port , ()=>console.log(`Server is listening at port : ${port}\n`));

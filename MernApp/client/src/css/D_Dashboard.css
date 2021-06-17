@@ -87,16 +87,7 @@ main {
   margin: 20px 0;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 22vh;
-  padding: 25px;
-  border-radius: 5px;
-  background: #ffffff;
-  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
-}
+
 
 .card_inner {
   display: flex;
