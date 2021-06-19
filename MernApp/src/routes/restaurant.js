@@ -4,6 +4,9 @@ var router = express.Router();
 const path = require("path")
 const Restaurants = require("../models/restaurant");
 const Branches = require('../models/branch');
+const Recipes = require('../models/recipe');
+const Reservations = require('../models/reservation');
+const Admins = require('../models/admin/branchAdmin');
 const multer = require("multer");
 
 router.post("/restaurant/upload", (req,res)=>{
@@ -28,26 +31,23 @@ router.post("/restaurant/upload", (req,res)=>{
     })
 })
 router.delete("/restaurant/deleteAll" ,async(req,res)=>{
-    //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
-    try {
-        const isAnyRestaurant = await Restaurants.countDocuments({}); 
-        console.log(isAnyRestaurant);
-        if(isAnyRestaurant){
+        let message = null;
+        //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
+        try {
             await Restaurants.remove();     
-            console.log("Deleted all restaurants!")
-            res.send({status:1});
+            await Recipes.remove();     
+            await Branches.remove();     
+            await Admins.remove();     
+            await Reservations.remove();     
+            message = "Deleted all restaurants , branches ,reservations ,admins and recipes!"
+            console.log(message)
+            res.send({message});
         }
-        else{
-            console.log("Collection already empty!")
-            res.send({status:2});
-        }
-    } catch (error) {
-        console.log("Error occured deleting all restaurants : " + error);
-        res.send({
-            status:0,
-            message:"Error occured deleting all restaurants!**"
-        });
-    }
+        catch (error) {
+            message = error;
+            console.log(message);
+            res.send({message});
+        }   
     })
 router.post("/restaurant/getsingle" , async(req,res)=>{
     try {

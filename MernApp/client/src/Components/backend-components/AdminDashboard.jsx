@@ -16,6 +16,8 @@ class Manager extends Component {
       bData:[{}],
       isAuthenticated:false,
       adminId:null,
+      message:null,
+      key:null,
       display:0, //DISPLAY 0 (SHOWS NOTHING) 1 SHOWS TO AUTHENTICATE FIRST 3 SHOWS DEV PANNEL
     }
     
@@ -30,16 +32,33 @@ getData= async()=>{
   axios.defaults.withCredentials = true;
   axios.post("/admin/validate")
   .then((data)=>{
-    if(data.data.isAuthenticated){
+    if(data.data.key === 1){
       this.setState({
         isAuthenticated:data.data.isAuthenticated,
         display:2,
         aData:data.data.aData,
         bData:data.data.bData,
-        adminId:data.data.bData[0]._id});
-
+        adminId:data.data.bData[0]._id,
+        message:data.data.message});
+        alert(data.data.message);
       }
-    else{this.setState({isAuthenticated:data.data.isAuthenticated,display:1});}
+    else if(data.data.key === -1){
+      this.setState({
+        isAuthenticated:data.data.isAuthenticated,
+        display:0,
+        message:data.data.message});
+        alert(data.data.message);
+
+    }  
+    else{
+      this.setState({
+        isAuthenticated:data.data.isAuthenticated,
+        display:0,
+        message:data.data.message
+      });
+      alert(data.data.message);
+
+    }
     
   })
   .catch(err=>console.log(err));    
@@ -58,7 +77,7 @@ setCount(count){
   })
 }
   render() {
-    const {display , adminId} = this.state ;
+    const {display , adminId , message} = this.state ;
     if(display===2){
     return (
       <div className="d-flex flex-row">
@@ -100,9 +119,9 @@ setCount(count){
           </div>
         </div>
     )}
-    else if(display===1){
-      return(<div  style={{textAlign:"center",color:'red',fontWeight:"bold",fontSize:'25',letterSpacing:1.3,marginTop:'50vh'}}>You are not an authenticated admin. Sign in first.</div>)}
-    else if(display===0){return(<div  style={{textAlign:"center",color:'green',fontWeight:"bold",fontSize:'25',letterSpacing:1.3,marginTop:'50vh'}}>LOADING <span></span></div>)}  
+    // else if(display===1){
+    //   return(<div  style={{textAlign:"center",color:'red',fontWeight:"bold",fontSize:'25',letterSpacing:1.3,marginTop:'50vh'}}>You are not an authenticated admin. Sign in first.</div>)}
+    else if(display===0){return(<div  style={{textAlign:"center",color:'red',fontWeight:"bold",fontSize:'25',letterSpacing:1.3,marginTop:'50vh'}}>{message} <span></span></div>)}  
     }
 }
 

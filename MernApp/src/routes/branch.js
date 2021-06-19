@@ -8,9 +8,12 @@ const nodemailer = require("nodemailer");
 const {google} = require('googleapis');
 
 const Branches = require('../models/branch');
+const Admins = require('../models/admin/branchAdmin');
 const Restaurants = require('../models/restaurant');
-const Reservation = require('../models/reservation');
+const Reservations = require('../models/reservation');
+const Recipes = require('../models/recipe');
 const { oauth2 } = require("googleapis/build/src/apis/oauth2");
+const BranchAdmin = require("../models/admin/branchAdmin");
 
 fNames = null;
 router.post("/branch/addImages", (req,res)=>
@@ -39,25 +42,20 @@ router.post("/branch/addImages", (req,res)=>
     })
 })
 router.delete("/branch/deleteAll" ,async(req,res)=>{
+    let message=null;
     //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
     try {
-        const isAnyBranch = await Branches.countDocuments({}); 
-        if(isAnyBranch){
-            await Branches.remove({});     
-            console.log("Deleted all branches!")
-            res.send({status:1});
-        }
-        else{
-            console.log("Branches already empty!")
-            res.send({status:2});
-        }
-        
-    } catch (error) {
-        console.log("Error occured adding all branches : " + error);
-        res.send({
-            status:0,
-            message:"Error occured adding all branches!**"
-        });
+        await BranchAdmin.remove({});  
+        await Branches.remove({});      
+        await Recipes.remove({});     
+        await Reservations.remove({});     
+        let message = "Deleted all branches ,reservations , recipes and admins." 
+        console.log(message)
+        res.send({message});
+    }
+    catch (error) {
+        message = error;
+        res.send({message});
     }
     })
 router.get("/branches/get" , async (req,res)=>{

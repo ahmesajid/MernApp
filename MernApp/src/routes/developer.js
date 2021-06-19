@@ -69,4 +69,9 @@ router.post("/developer/validate" ,authenticateDeveloper, async(req,res)=>{
     res.send({isAuthenticated:req.isAuthenticated});
 });
 
+router.post("/developer/remove/cookie" , async(req,res)=>{
+    console.log("/developer/remove/cookie");
+    res.clearCookie("isDevSignIn");
+    res.send({isRemoved:1});
+});
 module.exports = router;

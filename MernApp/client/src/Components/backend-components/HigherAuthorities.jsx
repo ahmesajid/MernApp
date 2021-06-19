@@ -14,19 +14,7 @@ class HigherAuthorities extends Component {
     }
     deleteAllRestaurants(){
         axios.delete('/restaurant/deleteAll')
-        .then((data)=>{
-            if(!data.data.status)
-            {
-                console.log("Restaurants couldn't deleted!");
-            }
-            else if(data.data.status===1)
-            {
-                alert("All restaurants deleted!")
-            }
-            else if(data.data.status===2){
-                alert("All restaurants already deleted!")
-            }
-        })
+        .then((data)=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
             console.log(e);
@@ -34,19 +22,7 @@ class HigherAuthorities extends Component {
     }
     deleteAllBranches(){
         axios.delete('/branch/deleteAll')
-        .then((data)=>{
-            if(!data.data.status)
-            {
-                console.log("Branches couldn't deleted!");
-            }
-            else if(data.data.status===1)
-            {
-                alert("All branches deleted!")
-            }
-            else if(data.data.status===2){
-                alert("All branches already deleted!")
-            }
-        })
+        .then((data)=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
             console.log(e);
@@ -54,19 +30,7 @@ class HigherAuthorities extends Component {
     }
     deleteAllAdmins(){
         axios.delete('/admin/deleteAll')
-        .then((data)=>{
-            if(!data.data.status)
-            {
-                console.log("Admins of all restaurants couldn't deleted!");
-            }
-            else if(data.data.status===1)
-            {
-                alert("Admins of all restaurants deleted!")
-            }
-            else if(data.data.status===2){
-                alert("All admins already deleted!")
-            }
-        })
+        .then((data)=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
             console.log(e);
@@ -74,19 +38,7 @@ class HigherAuthorities extends Component {
     }
     deleteAllRecipes(){
         axios.delete('/recipe/deleteAll')
-        .then((data)=>{
-            if(!data.data.status)
-            {
-                console.log(data.data.message);
-            }
-            else if(data.data.status===1)
-            {
-                alert("Recipes of all restaurants deleted!")
-            }
-            else if(data.data.status===2){
-                alert("Recipes of all restaurants already deleted!!")
-            }
-        })
+        .then(data=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
             console.log(e);

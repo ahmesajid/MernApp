@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../../css/branchhome.css";
 import DatePicker from "react-date-picker";
+import ReactHtmlParser from 'html-react-parser'; 
 class Branch_Show extends Component {
   constructor(props) {
     super(props);
@@ -70,6 +71,7 @@ class Branch_Show extends Component {
       resDate: this.state.date,
       resTime: this.state.time,
       b_id: this.props.selectedBranch,
+      location:null
     };
     console.log(sendData);
 
@@ -97,7 +99,7 @@ class Branch_Show extends Component {
         if (!data.data.status) {
           console.log(data.data.message);
         } else if (data.data.status) {
-          this.setState({ thisBranchData: data.data.bData });
+          this.setState({ thisBranchData: data.data.bData,location:data.data.bData[0].location.toString() });
         }
         let tempArr = [];
         let i = 0;
@@ -121,7 +123,6 @@ class Branch_Show extends Component {
     axios.post("/recipe/get", { p_id: this.state.selectedBranch })
       .then((data) => {
         if (!data.data.status) {
-          console.log(data.data.message);
         } else if (data.data.status === 1) {
           this.setState({
             recipes: data.data.resData,
@@ -141,6 +142,7 @@ class Branch_Show extends Component {
   };
 
   render() {
+    const {location} = this.state
     return (<>
         
       <div>
@@ -150,129 +152,52 @@ class Branch_Show extends Component {
                 <li data-target="#restaurent" data-slide-to={fn.id}></li>
               ))}
             </ol>
+
             <div class="carousel-inner" role="listbox">
-              {this.state.imgArr.map((fn, i) =>
-                i == 0 ? (
-                  <>
-                    <div class="carousel-item active">
-                      <img
-                        class="hero-img"
-                        src={`/Images/Branches/${fn.fName}`}
-                        
-                      />
-                    </div>
-                    <div class="carousel-caption">
-                      <h2 style={{ letterSpacing: 1.3 }}>
-                        {this.state.thisBranchData[0].name}
-                      </h2>
-                    </div>
-                  </>
-                ) : (
-                  <div class="carousel-item">
-                    <img
-                      class="hero-img"
-                      src={`/Images/Branches/${fn.fName}`}
-                    />
-                    <div
-                      class="carousel-caption bg-dark"
-                      style={{ opacity: 0.7 }}
-                    >
-                      <h2 style={{ letterSpacing: 1.3 }}>
-                        {this.state.thisBranchData[0].name}
-                      </h2>
-                    </div>
-                  </div>
-                )
-              )}
+              {this.state.imgArr.map((fn, i) =>(<>
+                <div class={i==0?"carousel-item active":'carousel-item '} >
+                  <img class="hero-img" src={`/Images/Branches/${fn.fName}`} />
+                </div>
+              </>))}
             </div>
           </div>
+          <div className="d-flex justify-content-center p-4 m-4" style={{letterSpacing:2, fontFamily:"sans-serif" , fontWeight:"bold" , fontSize:"30px"}}>{this.state.thisBranchData[0].name} </div>
           <div className="ml-5 mr-5 mt-3 mb-2">
             <div className="row">
               {this.state.isRecipe == 1 ? (
                 <div className="col-md-7 mb-5">
-                  <h3 style={{ fontSize: "20px" }}>Restaurant Menu</h3>
-                  <hr />
-                  <div
-                    class="card mt-3"
-                    style={{
-                      backgroundColor: "#efefef",
-                      border: "none",
-                    }}
-                  >
+                  <h3 style={{ fontSize: "20px" }}>Restaurant Menu</h3><hr />
+                  <div class="card mt-3"style={{border: "none",}}>
                     <div class="card-body">
-                      {/*Map Function (start)*/}
                       <div className="row" style={{ fontSize: "17px" }}>
-                        <div className="col-6">
-                          <h5>Food Name</h5>
-                          <p
-                            className="text-muted"
-                            style={{ fontSize: "13px" }}
-                          ></p>
+                        <div className="col-6"> <h5>Food Name</h5> <p className="text-muted" style={{ fontSize: "13px" }}></p>
                         </div>
-
                         <div className="col-6">
-                          <p className="float-right">
-                            <h5>Food Price</h5>
-                          </p>
-                        </div>
-                      </div>
-                      <hr />
-                      {this.state.recipes.map((r, i) =>
-                        i % 2 === 0 ? (
-                          <>
-                            <div
-                              className="row"
-                              style={{
-                                fontSize: "17px",
-                                backgroundColor: "gray",
-                              }}
-                            >
-                              <div className="col-6">
-                                {r.name}
-                                <p
-                                  className="text-muted"
-                                  style={{ fontSize: "13px" }}
-                                >
-                                  {r.description}
-                                </p>
-                              </div>
+                          <p className="float-right"><h5>Food Price</h5></p></div>
+                        </div><hr />
 
-                              <div className="col-6">
-                                <p className="float-right">Rs/- {r.price}</p>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="row" style={{ fontSize: "17px" }}>
-                              <div className="col-6">
-                                {r.name}
-                                <p
-                                  className="text-muted"
-                                  style={{ fontSize: "13px" }}
-                                >
-                                  {r.description}
-                                </p>
-                              </div>
-                              <div className="col-6">
-                                <p className="float-right">Rs/- {r.price}</p>
-                              </div>
-                            </div>
-                          </>
-                        )
-                      )}
-                      {/*Map Function (End)*/}
+                        {/* MAP RECIPES */}
+                      {this.state.recipes.map((r, i) =>(
+                        <div className="row" style={{ fontSize: "17px", backgroundColor:!i%2?'light':'' }} >
+                          <div className="col-6">
+                            {r.name}
+                            <p className="text-muted" style={{ fontSize: "13px" }}>{r.description}</p>
+                          </div>
+
+                          <div className="col-6">
+                            <p className="float-right">Rs/- {r.price}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className="col-md-7 mb-5">
-                  <h3 style={{ textAlign: "center", letterSpacing: 1.5 }}>
-                    {" "}
-                    No recipes yet
-                  </h3>
+                  <h3 style={{ textAlign: "center", letterSpacing: 1.5 }}>No recipes yet</h3>
                 </div>
               )}
+
               <div className="col-md-5">
                 <div className=" d-flex justify-content-center">
                   <button
@@ -292,19 +217,15 @@ class Branch_Show extends Component {
                     Reserve Now
                   </button>
                 </div>
+               
                 {/*-----Show Location-------- */}
-                <div className="mt-4">
-                  <h3 style={{ fontSize: "20px" }}>Location</h3>
-                  <hr />
+                <div className="mt-4" >
+                <h3 style={{ fontSize: "20px" }}>Location</h3>
                   <div className="mt-3 pl-1 pr-1 pt-3 pb-1">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13587.77235132261!2d74.3000763!3d31.6354086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39191c0961f38f47%3A0x4aa68abc745d4da2!2sAl%20Sheikh%20Marriage%20Hall!5e0!3m2!1sen!2s!4v1623689587761!5m2!1sen!2s"
-                      width="100%"
-                      height="250"
-                      loading="lazy"
-                    ></iframe>
+                    {ReactHtmlParser(`${location}`)}
                   </div>
                 </div>
+                
                 {/*-----Show Timmings-------- */}
                 <div className="mt-4">
                   <h3 style={{ fontSize: "20px" }}>Our Timmings</h3>

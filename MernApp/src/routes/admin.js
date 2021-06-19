@@ -5,26 +5,17 @@ const Branches = require('../models/branch');
 const authenticateAdmin = require('../Middleware/AuthenticateAdmin');
 const jwt = require("jsonwebtoken");
 router.delete("/admin/deleteAll" ,async(req,res)=>{
+    let message = null;
     //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
     try {
-        const isAnyBranchAdmin = await BranchAdmin.countDocuments({}); 
-        console.log(isAnyBranchAdmin);
-        if(isAnyBranchAdmin){
-            await BranchAdmin.remove();     
-            console.log("Deleted all branch admins!")
-            res.send({status:1});
-        }
-        else{
-            console.log("Collection already empty!")
-            res.send({status:2});
-        }
-        
-    } catch (error) {
-        console.log("Error occured deleting all admins : " + error);
-        res.send({
-            status:0,
-            message:"Error occured deleting all admins!**"
-        });
+        await BranchAdmin.remove();    
+        message = "Deleted all admins!" 
+        console.log(message)
+        res.send({message});
+    }catch (error) {
+        message=error
+        console.log(message);
+        res.send({message});
     }
     })
 router.post("/admin/signin" ,async(req,res)=>{
@@ -99,13 +90,40 @@ router.get("/admin/get" , async(req,res)=>{
     });
 router.post("/admin/validate" ,authenticateAdmin, async(req,res)=>{
     console.log("/admin/validate");
-    let aData , bData =null;
+    let aData , bData , isAuthenticated , message =null;
     if(req.isAuthenticated){
+        isAuthenticated = req.isAuthenticated;
         aData = await BranchAdmin.findOne({_id:req._id});
         bData = await Branches.find({_id:aData.branch_id});
     }
+
+    if(isAuthenticated)
+    {
+        if(aData.length && bData.length){
+            res.send({
+            isAuthenticated ,
+            aData,
+            bData,
+            key:1,
+            message:"Admin is authenticated!"})
+        }
+        else{
+            res.send({
+            isAuthenticated,
+            aData:null,
+            bData:null,
+            key:-1,
+            message:"Admin is associated with any branch"})
+        }
+    } 
+    else{
+        res.send({
+        isAuthenticated,
+        aData:null,
+        bData:null,
+        key:0,
+        message:"Admin is not authenticated. First authenticate by login!"})
+        }
     
-    req.isAuthenticated? res.send({isAuthenticated:req.isAuthenticated ,aData:aData,bData:bData}):res.send({isAuthenticated:false})
-   
 });
 module.exports = router;

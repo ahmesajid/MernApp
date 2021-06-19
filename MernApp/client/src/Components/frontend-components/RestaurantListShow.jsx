@@ -3,6 +3,7 @@ import "../../css/restaurantlistshow.css";
 import axios from 'axios'
 import SelectBranch from '../frontend-components/FilterBranch';
 import WaiterImage from '../../images/waiter.png';
+
 class Rest extends Component {
   
     constructor(props) {
@@ -13,7 +14,8 @@ class Rest extends Component {
           branchesdetails:[] , 
           restaurantData:[] , 
           restaurantId:null,
-          isLoaded:false
+          isLoaded:false,
+          button:'<button type="btn" class="btn btn-info">Click</button>'
       }
       this.goBack = this.goBack.bind(this);
   }
@@ -45,7 +47,7 @@ componentDidMount=()=>{
                 // alert(data.data.message);
                 console.log(data.data.message);
             }
-            else if(data.data.status == "ok")
+            else if(data.data.status == "ok" && data.data.resData.length)
             {
                 this.setState({
                     restaurantData:data.data.resData,
@@ -69,7 +71,7 @@ render() {
   const {isChild , isParent , isLoaded} = this.state;
   if(isParent && isLoaded){
     return (
-      <div className="container mt-3 p-2 bg-light"> <div className="d-flex justify-content-center mb-4"><span style={{letterSpacing:2,fontFamily:'sans-serif',fontSize:40,color:'darkslategrey',fontWeight:'bold'}}>Restaurant Cards</span></div>
+      <div className="container mt-4 mb-4 p-2 bg-light"> <div className="d-flex justify-content-center mb-4"><span style={{letterSpacing:2,fontFamily:'sans-serif',fontSize:40,color:'darkslategrey',fontWeight:'bold'}}>Restaurant Cards</span></div>
         <div className="row justify-content-around">
           {this.state.restaurantData.map((rs) => (
             <div class="col-md-3 p-2 m-2 shadow bg-dark text-white card rounded" style={{width:'30rem'}} style={{cursor:'pointer'}}>
@@ -94,12 +96,12 @@ render() {
   }
   else if(!isLoaded){
     return(
-      <div className=" mx-auto d-flex flex-row justify-content-center m-3 p-3">
+      <div className=" mx-auto d-flex flex-row justify-content-center mt-4 mb-4 pt-4 pb-4">
         <div className="d-flex align-items-center">
-          <h2 style={{fontFamily:'sans-serif',letterSpacing:2,fontWeight:'bold'}}>Loading your restaurant data.</h2>
+          <h2 className="p-2 m-2" style={{fontFamily:'sans-serif',letterSpacing:2,fontWeight:'bold'}}>Your restaurant data will load here.</h2>
         </div>
-        <div className="">
-          <img src={WaiterImage} style={{width:'20vw',height:'50vh'}}/>
+        <div className="p-2 m-2">
+          <img src={WaiterImage} style={{width:'22vw',height:'48vh'}}/>
         </div>
       </div>
     )

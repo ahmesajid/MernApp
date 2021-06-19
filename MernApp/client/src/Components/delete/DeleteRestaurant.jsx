@@ -46,7 +46,8 @@ deleteRestaurant(e){
         }
         else if(data.data.status == "ok")
         {
-            alert("Selected restaurant deleted!\nKindly refresh page**")
+            alert("Selected restaurant deleted!**")
+            this.componentDidMount();
         }
     })
     .catch((e)=>{

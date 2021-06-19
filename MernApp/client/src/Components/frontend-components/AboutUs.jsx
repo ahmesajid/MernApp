@@ -2,12 +2,14 @@ import React from "react";
 import x from "../../images/a.jpg";
 import y from "../../images/Bilal (1).jpg";
 import z from "../../images/a.jpg";
+import TeacherImage from '../../images/teacher.png'
+import DeveloperImage from '../../images/developer.png'
 import ahmer from "../../images/ahmer.jpg";
 
 function About() {
   return (
     <>
-      <div className="container-fluid  mt-5 mb-2">
+      <div className="container  mt-5 mb-2">
         <h3 style={{ fontSize: "30px" }}>About Us</h3>
 
         <hr />
@@ -37,11 +39,13 @@ function About() {
           <div class="row">
             <div class="col-lg-3 col-md-6">
               <img
-                src={x}
-                alt="Boss"
-                class="w3-circle w3-hover-opacity"
-                width="180px"
-                height="170px"
+                src={TeacherImage}
+                alt="teacher"
+                class=" w3-hover-opacity"
+                width="200px"
+                height="200px"
+                style={{borderRadius:"50%"}}
+                
               />
               <h3>Shuja Ur-Rehman</h3>
               <p>Assistant Professor, PUCIT</p>
@@ -49,35 +53,38 @@ function About() {
 
             <div class="col-lg-3 col-md-6">
               <img
-                src={ahmer}
-                alt="Boss"
-                class="w3-circle w3-hover-opacity"
-                width="180px"
-                height="170px"
+                src={DeveloperImage}
+                alt="developer"
+                class=" w3-hover-opacity"
+                width="200px"
+                height="200px"
+                style={{borderRadius:"50%"}}
               />
               <h3>Ahmer Bin Sajid</h3>
               <p>Software Engineer, PUCIT</p>
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <img
-                src={y}
-                alt="Boss"
-                class="w3-circle w3-hover-opacity"
-                width="180px"
-                height="170px"
+            <img
+                src={DeveloperImage}
+                alt="developer"
+                class=" w3-hover-opacity"
+                width="200px"
+                height="200px"
+                style={{borderRadius:"50%"}}
               />
               <h3>Muhammad Bilal</h3>
               <p>Software Engineer, PUCIT</p>
             </div>
 
             <div class="col-lg-3 col-md-6">
-              <img
-                src={z}
-                alt="Boss"
-                class="w3-circle w3-hover-opacity"
-                width="180px"
-                height="170px"
+            <img
+                src={DeveloperImage}
+                alt="developer"
+                class=" w3-hover-opacity"
+                width="200px"
+                height="200px"
+                style={{borderRadius:"50%"}}
               />
               <h3>Allah Wasaya</h3>
               <p>Software Engineer, PUCIT</p>

@@ -18,7 +18,9 @@ class Developer extends Component {
       counter:0,
       isAuthenticated:false,
       display:0, //DISPLAY 0 (SHOWS NOTHING) 1 SHOWS TO AUTHENTICATE FIRST 3 SHOWS DEV PANNEL
+      
     }
+    this.removeCookie = this.removeCookie.bind(this);
   }
   setCount(count) {
     this.setState({
@@ -46,9 +48,22 @@ class Developer extends Component {
     // console.log(isAuthUser);
   }
   componentDidMount(){
-   
+  
    this.getData();
-   
+  }
+  removeCookie(){
+    axios.defaults.withCredentials = true;
+    try {
+      axios.post("/developer/remove/cookie")
+      .then((data)=>{
+        if(data.data.isRemoved){
+          alert("removed");
+          this.props.logout()
+      }}).catch(err=>console.log(err))
+    } catch (error) {
+      console.log(error);
+    }
+    
   }
   render() {
     const {display} = this.state ;
@@ -85,7 +100,7 @@ class Developer extends Component {
               <button className="btn btn-link" onClick={()=>this.setCount(7)}>
                 User Report
               </button>
-              <button className="btn btn-link" onClick={this.props.logout}>
+              <button className="btn btn-link" onClick={this.removeCookie}>
                 Logout
               </button>
               <br/>

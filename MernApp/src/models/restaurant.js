@@ -8,7 +8,7 @@ const restaurantSchema = new mongoose.Schema({
     },
     branches:{
         type:Number,
-        default:null,
+        default:0,
     },
     description:{
         type:String,

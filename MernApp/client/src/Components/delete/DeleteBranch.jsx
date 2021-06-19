@@ -58,7 +58,8 @@ deleteBranch(e){
         }
         else if(data.data.status == "ok")
         {
-            alert("Selected branch deleted!**\nKindly refresh page")
+            alert("Selected branch deleted!")
+            this.componentDidMount()
         }
     })
     .catch((e)=>{

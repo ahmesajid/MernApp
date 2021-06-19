@@ -2,26 +2,17 @@ var express = require("express")
 var router = express.Router();
 const Recipes = require('../models/recipe');
 router.delete("/recipe/deleteAll" ,async(req,res)=>{
+    let message = null
     //REQ.BODY IS RECIEVING DATA IN OBJECT FORMAT
     try {
-        const isAnyRecipe = await Recipes.countDocuments({}); 
-        console.log(isAnyRecipe);
-        if(isAnyRecipe){
-            await Recipes.remove();     
-            console.log("Deleted all recipes!")
-            res.send({status:1});
-        }
-        else{
-            console.log("Collection already empty!")
-            res.send({status:2});
-        }
-        
+        await Recipes.remove();     
+        message = "Deleted all recipes!"
+        console.log(message)
+        res.send({message});
     } catch (error) {
-        console.log("Error occured deleting all recipes : " + error);
-        res.send({
-            status:0,
-            message:"Error occured deleting all recipes!**"
-        });
+        messgae = error
+        console.log(error);
+        res.send({message});
     }
     })
 router.post("/recipe/delete" ,async(req,res)=>{

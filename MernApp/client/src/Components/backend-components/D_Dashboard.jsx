@@ -5,6 +5,7 @@ import Chart from "react-apexcharts";
 import { CalendarComponent } from "@syncfusion/ej2-react-calendars";
 import style from '../../css/D_Dashboard.module.css';
 import axios from 'axios';
+import AnalyticImage from '../../images/analytics.png'
 import { data } from "jquery";
 export default class D_Dashboard extends React.Component {
   // var =null;
@@ -387,9 +388,16 @@ export default class D_Dashboard extends React.Component {
         </div>
       </>
     );}else{
-      return(<div style={{fontFamily:"sans-serif", letterSpacing:1 , textAlign:"center" , marginTop:'50vh' , color:"green"}}>
-        <h3>Loading...</h3>
-      </div>)
+      return(
+        <div className="d-flex flex-row justify-content-center mx-auto" style={{marginTop:"30vh"}}>
+          <div className="m-2">
+            <img src={AnalyticImage} style={{width:'22vw',height:'40vh'}}/>
+          </div>
+          <div className="d-flex align-items-center ">
+            <h2 className="m-2" style={{fontFamily:'sans-serif',letterSpacing:1.5,fontWeight:'bold'}}>Loading your analytics.</h2>
+          </div>
+      </div>
+      )
     }
   }
 }

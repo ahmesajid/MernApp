@@ -3,7 +3,7 @@ import Footer from "./Footer";
 function PrivacyPolicy() {
   return (
     <>
-      <div className="container-fluid mt-5">
+      <div className="container mt-5">
         <h3 style={{ fontSize: "30px" }}>Privacy Policy</h3>
         <hr />
         <div className="mt-5">

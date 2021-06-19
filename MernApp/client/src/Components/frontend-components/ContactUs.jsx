@@ -2,7 +2,7 @@ import React from "react";
 function ContactUs() {
   return (
     <>
-      <div className="container-fluid mt-5 mb-5">
+      <div className="container mt-5 mb-5">
         <h3 style={{ fontSize: "30px" }}>Contact Us</h3>
         <hr />
         <div className="row mt-5">

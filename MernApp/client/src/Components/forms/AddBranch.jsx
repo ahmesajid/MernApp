@@ -285,7 +285,7 @@ addBranch=(e)=>{
               <input
                 type="text"
                 class="form-control"
-                placeholder="Location Iframe String"
+                placeholder="(remove all styles add height 250px and width 100% and loading lazy)"
                 value={this.state.location}
                 onChange={this.handleLocationChange}
               />
