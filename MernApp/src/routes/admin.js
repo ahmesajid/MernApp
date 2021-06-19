@@ -89,14 +89,15 @@ router.get("/admin/get" , async(req,res)=>{
     }
     });
 router.post("/admin/validate" ,authenticateAdmin, async(req,res)=>{
-    console.log("/admin/validate");
+    try {
+        console.log("/admin/validate");
+    console.log(req._id);
     let aData , bData , isAuthenticated , message =null;
     if(req.isAuthenticated){
         isAuthenticated = req.isAuthenticated;
-        aData = await BranchAdmin.findOne({_id:req._id});
-        bData = await Branches.find({_id:aData.branch_id});
+        aData = await BranchAdmin.find({_id:req._id});
+        bData = await Branches.find({_id:aData[0].branch_id});
     }
-
     if(isAuthenticated)
     {
         if(aData.length && bData.length){
@@ -113,7 +114,7 @@ router.post("/admin/validate" ,authenticateAdmin, async(req,res)=>{
             aData:null,
             bData:null,
             key:-1,
-            message:"Admin is associated with any branch"})
+            message:"Admin is not associated with any branch"})
         }
     } 
     else{
@@ -124,6 +125,15 @@ router.post("/admin/validate" ,authenticateAdmin, async(req,res)=>{
         key:0,
         message:"Admin is not authenticated. First authenticate by login!"})
         }
+    } catch (error) {
+        console.log(error)
+    }
     
+});
+
+router.post("/admin/remove/cookie" , async(req,res)=>{
+    console.log("/admin/remove/cookie");
+    res.clearCookie("isAdminSignIn");
+    res.send({isRemoved:1});
 });
 module.exports = router;

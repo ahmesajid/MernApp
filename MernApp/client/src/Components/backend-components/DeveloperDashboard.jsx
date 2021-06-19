@@ -3,22 +3,23 @@ import AddRestaurant from "../forms/AddRestaurant";
 import DeleteRestaurant from "../delete/DeleteRestaurant";
 import AddBranch from "../forms/AddBranch";
 import DeleteBranch from "../delete/DeleteBranch";
-
 import D_Dashboard from "../backend-components/D_Dashboard";
 import HigherAuthorities from '../backend-components/HigherAuthorities';
 import ManagerReport from '../backend-components/ManagerReport';
 import UserReport from '../backend-components/UserReport';
 import '../../css/sidenav.css';
 import axios from 'axios';
+import {Redirect} from "react-router-dom";
+import DeveloperSignIn from "../forms/DeveloperSignIn";
+import AuthenticatedImage from '../../images/authenticated.png'
 class Developer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       counter:0,
       isAuthenticated:false,
-      display:0, //DISPLAY 0 (SHOWS NOTHING) 1 SHOWS TO AUTHENTICATE FIRST 3 SHOWS DEV PANNEL
-      
+      display:0, //DISPLAY 0 (SHOWS NOTHING) 1 SHOWS TO AUTHENTICATE FIRST 3 SHOWS DEV PANNEL 4 shows login screen
+      isLoggedIn:null
     }
     this.removeCookie = this.removeCookie.bind(this);
   }
@@ -34,7 +35,7 @@ class Developer extends Component {
     axios.post("/developer/validate")
     .then((data)=>{
       if(data.data.isAuthenticated){this.setState({isAuthenticated:data.data.isAuthenticated,display:2});}
-      else{this.setState({isAuthenticated:data.data.isAuthenticated,display:1});}
+      else{this.setState({isAuthenticated:data.data.isAuthenticated,display:1,isLoggedIn:true});}
       
     })
     .catch(err=>console.log(err));    
@@ -48,7 +49,6 @@ class Developer extends Component {
     // console.log(isAuthUser);
   }
   componentDidMount(){
-  
    this.getData();
   }
   removeCookie(){
@@ -57,8 +57,7 @@ class Developer extends Component {
       axios.post("/developer/remove/cookie")
       .then((data)=>{
         if(data.data.isRemoved){
-          alert("removed");
-          this.props.logout()
+          this.setState({isLoggedIn:false,display:4,isAuthenticated:false})
       }}).catch(err=>console.log(err))
     } catch (error) {
       console.log(error);
@@ -66,7 +65,7 @@ class Developer extends Component {
     
   }
   render() {
-    const {display} = this.state ;
+    const {display , isAuthenticated , isLoggedIn} = this.state ;
     if(display === 2){
       return (
         <>
@@ -108,7 +107,6 @@ class Developer extends Component {
             </div>
             <div className="w-75 right">
               <div>{this.state.counter == 1 ? <AddRestaurant /> : 
-                    
               <div>{this.state.counter == 2 ? < DeleteRestaurant/> : 
               <div>{this.state.counter == 3 ? < AddBranch/> : 
               <div>{this.state.counter == 4 ? < DeleteBranch/> : 
@@ -130,9 +128,19 @@ class Developer extends Component {
       );
     }
     else if(display===1){
-      return(<div  style={{textAlign:"center",color:'red',fontWeight:"bold",fontSize:'25',letterSpacing:1.3,marginTop:'50vh'}}>You are not authenticated. Sign in first.</div>)}
+      return(
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{marginTop:"20vh"}}>
+            <div><img src={AuthenticatedImage} style={{width:'22vw',height:'45vh'}}/></div>
+            <div><p className="" style={{fontFamily:'sans-serif',letterSpacing:2,fontWeight:'bold',fontSize:'30px'}}>You are not an authenticated developer.</p></div>
+            <div><p style={{fontFamily:'sans-serif',letterSpacing:1,fontWeight:'bold' , color:"green"}}> Sign in first to authenticate</p></div>
+        </div>
+      )}
     else if(display===0){return(<div  style={{textAlign:"center",color:'green',fontWeight:"bold",fontSize:'25',letterSpacing:1.3,marginTop:'50vh'}}>LOADING <span></span></div>)}  
-    }
+    else if(display===4){return(<>
+      <Redirect to="/developersignin"/>
+    </>)}
+  }
+    
   
 }
 export default Developer;

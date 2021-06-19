@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import DeveloperDashboard from '../backend-components/DeveloperDashboard'
+import { Route, Switch , Link ,Redirect} from "react-router-dom";
+
 class DeveloperSignIn extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,6 @@ class DeveloperSignIn extends Component {
     }
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.logoutDeveloper = this.logoutDeveloper.bind(this)
   }
   submitFormData=(e)=>{
     e.preventDefault();
@@ -55,13 +56,6 @@ class DeveloperSignIn extends Component {
       password:e.target.value
     })
   }
-  logoutDeveloper(){
-    alert("reove called")
-
-    this.setState({
-      isLoggedIn:0
-    })
-  }
   render() {
     if(!this.state.isLoggedIn){
       return (
@@ -100,7 +94,7 @@ class DeveloperSignIn extends Component {
     }else{
       return (
         <>
-          <DeveloperDashboard logout={this.logoutDeveloper}/>
+          <Redirect to="/developerdashboard"/>
         </>
       )
     }

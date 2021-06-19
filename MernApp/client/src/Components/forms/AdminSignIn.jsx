@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import AdminDashboard from '../backend-components/AdminDashboard';
+import {Redirect} from "react-router-dom";
 class AdminSignIn extends Component {
   constructor(props) {
     super(props);
@@ -109,7 +110,7 @@ class AdminSignIn extends Component {
       if(this.state.bData && this.state.bData){
         return (
           <>
-            <AdminDashboard logout={this.logoutAdmin} bData={this.state.bData} aData={this.state.aData}/>
+            <Redirect to="/admindashboard"/>
           </>
         )
       }
