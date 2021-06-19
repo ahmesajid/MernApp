@@ -3,7 +3,8 @@ const validator= require("validator");
 const branchSchema = new mongoose.Schema({
     b_id:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
 });
 

@@ -12,8 +12,10 @@ const Admins = require('../models/admin/branchAdmin');
 const Restaurants = require('../models/restaurant');
 const Reservations = require('../models/reservation');
 const Recipes = require('../models/recipe');
+const Recommendations = require('../models/recommendations')
 const { oauth2 } = require("googleapis/build/src/apis/oauth2");
 const BranchAdmin = require("../models/admin/branchAdmin");
+const Recommendations = require('../models/recommendations')
 
 fNames = null;
 router.post("/branch/addImages", (req,res)=>
@@ -48,7 +50,8 @@ router.delete("/branch/deleteAll" ,async(req,res)=>{
         await BranchAdmin.remove({});  
         await Branches.remove({});      
         await Recipes.remove({});     
-        await Reservations.remove({});     
+        await Reservations.remove({});   
+        await Recommendations.remove({})  
         let message = "Deleted all branches ,reservations , recipes and admins." 
         console.log(message)
         res.send({message});
@@ -207,7 +210,7 @@ async function sendMail(req){
 router.post("/branch/add/reservation" , async(req,res)=>{
     const response = sendMail(req.body);
     try {
-        const resData = new Reservation(req.body) ;
+        const resData = new Reservations(req.body) ;
         const insertedData = await resData.save();
         res.send({
             status:1,
@@ -221,12 +224,63 @@ router.post("/branch/add/reservation" , async(req,res)=>{
         });
     }
     });
+router.post("/recommendation/add" , async(req,res)=>{
+    const {b_id} = req.body;
+     try {
+        const recData = new Recommendations({b_id});
+        const insertedData = await recData.save();
+        console.log(insertedData)
+        res.send({status:1})
+    } catch (error) {
+        res.send({status:0});
+    }
+    });
+router.get("/recommendation/branch/get" , async(req,res)=>{
+     try {
+        let branchData = new Array()
+        const recData = await Recommendations.find();
+        console.log(recData)
+        console.log(recData.length)
+        for (let index = 0; index < recData.length; index++) {
+            const singleBranch = await Branches.findOne({_id:recData[index].b_id})
+            console.log(singleBranch)
+            branchData.push(singleBranch)
+        }
+        console.log(branchData)
+        res.send({branchData , status:1})
+    } catch (error) {
+        res.send({status:0});
+        console.log(error)
+    }
+    });
+router.post("/recommendation/delete" ,async (req,res)=>{
+    const {_id} = req.body
+    console.log(_id)
+     try {
+        const delData= await Recommendations.deleteMany({b_id:_id})
+        console.log(delData)
+        res.send({status:1})
+    } catch (error) {
+        res.send({status:0});
+        console.log(error)
+    }
+    });
+router.get("/recommendation/get" , async(req,res)=>{
+     try {
+        const recData = await Recommendations.find();
+        console.log(recData);
+        res.send({recData,status:1})
+    } catch (error) {
+        res.send({status:0});
+        console.log(error)
+    }
+    });
 router.post("/reservation/get/id" , async(req,res)=>{
     
     const {id} = req.body;
     console.log(id);
     try {
-        const resData = await Reservation.find({b_id:id}) ;
+        const resData = await Reservations.find({b_id:id}) ;
         console.log(resData);
         if(resData.length){    
             console.log("All the reservations fetched successfully!");

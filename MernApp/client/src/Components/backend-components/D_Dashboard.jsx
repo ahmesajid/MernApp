@@ -6,7 +6,7 @@ import { CalendarComponent } from "@syncfusion/ej2-react-calendars";
 import style from '../../css/D_Dashboard.module.css';
 import axios from 'axios';
 import AnalyticImage from '../../images/analytics.png'
-import { data } from "jquery";
+
 export default class D_Dashboard extends React.Component {
   // var =null;
   constructor(props) {
@@ -22,6 +22,10 @@ export default class D_Dashboard extends React.Component {
       closedIssuesCount:null,
       openIssuesPercentage:null,
       closedIssuesPercentage:null,
+      series:null,
+      todoText:null,
+      todoData:null,
+      delId:null,
       options:[
       {
         series: [67],
@@ -110,13 +114,13 @@ export default class D_Dashboard extends React.Component {
           },
           xaxis: {
             categories: [
-              "Sunday",
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
+              "Day 1",
+              "Day 2",
+              "Day 3",
+              "Day 4",
+              "Day 5",
+              "Day 6",
+              "Day 7",
             ],
           },
         },
@@ -131,10 +135,51 @@ export default class D_Dashboard extends React.Component {
         restaurantCount:5,
       }
     ]};
-    
+    this.handleTodo = this.handleTodo.bind(this)
+    this.addTodo = this.addTodo.bind(this)
+    this.deleteTodo= this.deleteTodo.bind(this)
+    this.handleTodoValue = this.handleTodoValue.bind(this)
+  }
+  handleTodo(e){
+    this.setState({todoText:e.target.value})
+  }
+  deleteTodo(){
+    axios.post("/todo/delete" , {delId:this.state.delId}).
+    then(res=>console.log(res.data.message)).
+    catch(err=>console.log(err))
+
+    axios.get("/todo/get").
+    then((res)=>{
+      this.setState({todoData:res.data.todoData})
+      console.log(res.data.todoData)
+    }).
+    catch(err=>console.log(err))
+  }
+  handleTodoValue(e){
+    this.setState({
+      delId:e.target.value
+    })
+  }
+  addTodo(){
+    axios.post("/todo/post" , {todoText:this.state.todoText}).
+    then(res=>console.log(res.data.message)).
+    catch(err=>console.log(err))
+
+    axios.get("/todo/get").
+    then((res)=>{
+      this.setState({todoData:res.data.todoData})
+      console.log(res.data.todoData)
+    }).
+    catch(err=>console.log(err))
   }
   componentDidMount(){
     try {
+      axios.get("/todo/get").
+      then((res)=>{
+        this.setState({todoData:res.data.todoData})
+      }).
+      catch(err=>console.log(err))
+
       axios.get('/counts/all')
       .then((res)=>{
         if(res.data){
@@ -149,6 +194,7 @@ export default class D_Dashboard extends React.Component {
             closedIssuesCount:res.data.closedIssuesCount,
             openIssuesPercentage:res.data.openIssuesPercentage,
             closedIssuesPercentage:res.data.closedIssuesPercentage,
+            series:res.data.series
           })
           
         }
@@ -233,7 +279,7 @@ export default class D_Dashboard extends React.Component {
                   </div>
                   <Chart
                     options={this.state.options[2].options}
-                    series={this.state.options[2].series}
+                    series={this.state.series}
                     type="bar"
                   />
                 </div>
@@ -285,13 +331,10 @@ export default class D_Dashboard extends React.Component {
                       ></i>
                     </span>
                   </div>
-                  <div
-                    style={{
-                      height: "35vh",
-                      overflowY: "scroll",
-                    }}
-                  >
-                    <p>Helloooooooo</p>
+                  <div style={{height: "35vh",overflowY: "scroll"}}>
+                  {this.state.todoData.map((data , index)=>(
+                      <p>{data.text}</p>
+                  ))}
                   </div>
                 </div>
               </div>
@@ -337,12 +380,14 @@ export default class D_Dashboard extends React.Component {
                       class="form-control"
                       id="recipient-name"
                       placeholder="Enter..."
+                      value={this.state.todoText}
+                      onChange={this.handleTodo}
                     />
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-dark">
+                <button type="button" class="btn btn-dark" onClick={this.addTodo}>
                   ADD
                 </button>
               </div>
@@ -374,12 +419,16 @@ export default class D_Dashboard extends React.Component {
                 </button>
               </div>
               <div class="modal-body">
-                <select class="form-control form-control-sm">
-                  <option selected>Select to delete</option>
+                <select class="form-control form-control-sm" id="custom-select-1" onChange={this.handleTodoValue}>
+                  <option selected>Select todo to delete</option>
+                  {this.state.todoData.map((data,index)=>(
+                    <option value={data._id}>{data.text}</option>
+                  ))}
+                  
                 </select>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-dark">
+                <button type="button" class="btn btn-dark" onClick={this.deleteTodo}>
                   DELETE
                 </button>
               </div>

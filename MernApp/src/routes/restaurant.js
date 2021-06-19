@@ -7,8 +7,14 @@ const Branches = require('../models/branch');
 const Recipes = require('../models/recipe');
 const Reservations = require('../models/reservation');
 const Admins = require('../models/admin/branchAdmin');
-const multer = require("multer");
+const Recommendations = require('../models/recommendations')
 
+const multer = require("multer");
+const isRes =async()=>{
+   
+}
+
+isRes();
 router.post("/restaurant/upload", (req,res)=>{
     const storage = multer.diskStorage({
         destination: path.join(__dirname,"../../public/Images/Restaurants/"),
@@ -38,7 +44,9 @@ router.delete("/restaurant/deleteAll" ,async(req,res)=>{
             await Recipes.remove();     
             await Branches.remove();     
             await Admins.remove();     
-            await Reservations.remove();     
+            await Reservations.remove(); 
+            await Recommendations.remove({})  
+
             message = "Deleted all restaurants , branches ,reservations ,admins and recipes!"
             console.log(message)
             res.send({message});

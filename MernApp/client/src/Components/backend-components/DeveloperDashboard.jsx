@@ -12,6 +12,8 @@ import axios from 'axios';
 import {Redirect} from "react-router-dom";
 import DeveloperSignIn from "../forms/DeveloperSignIn";
 import AuthenticatedImage from '../../images/authenticated.png'
+import AddRecommendations from "./AddRecommendations";
+import RemoveRecommendations from "./RemoveRecommendations";
 class Developer extends Component {
   constructor(props) {
     super(props);
@@ -75,6 +77,13 @@ class Developer extends Component {
               <button className="btn btn-link" onClick={() => this.setCount(8)}>
                 Dashboard
               </button>
+
+              <button className="btn btn-link" onClick={()=>this.setCount(9)}>
+                <i class="fas fa-plus-circle"></i> Add Recommendation
+              </button>
+              <button className="btn btn-link" onClick={()=>this.setCount(10)}>
+                <i class="fas fa-trash-alt"></i> Remove Recommendation
+              </button>
                <br />
               <button className="btn btn-link" onClick={()=>this.setCount(1)}>
                 <i class="fas fa-plus-circle"></i> Restaurant
@@ -114,7 +123,11 @@ class Developer extends Component {
               <div>{this.state.counter == 6 ? < ManagerReport/> : 
               <div>{this.state.counter == 7 ? < UserReport/> :
                <div>{this.state.counter == 8 ? <D_Dashboard /> :
+               <div>{this.state.counter == 9 ? <AddRecommendations /> :
+               <div>{this.state.counter == 10 ? <RemoveRecommendations /> :
               <h1 className="center text-muted">See left pannel for navigation</h1>}</div>
+              }</div>
+              }</div>
               }</div>
               }</div>
               }</div>
