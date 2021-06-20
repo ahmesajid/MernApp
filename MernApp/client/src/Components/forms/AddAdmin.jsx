@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios'
 import $ from "jquery";
 import "../../css/clock.css";
-
+import '../global'
 class Branch extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +69,7 @@ AddBranchAdmin(e){
     };
         console.log(branchAdminCredentials);
         
-        axios.post('/admin/signup',{branchAdminCredentials:branchAdminCredentials})
+        axios.post(`${global.backend}/admin/signup`,{branchAdminCredentials:branchAdminCredentials})
             .then((data)=>{
                 if(data.data.status == "error")
                 {
@@ -97,7 +97,7 @@ changeRestaurantBranches(e){
         }))
     }
     else{
-        axios.post('/restaurant/cities',{res:restaurantId})
+        axios.post(`${global.backend}/restaurant/cities`,{res:restaurantId})
         .then((data)=>{
             if(data.data.status == "error")
             {
@@ -120,7 +120,7 @@ changeRestaurantBranches(e){
 }
 componentDidMount=()=>{
     try {
-        axios.get('/restaurant/get')
+        axios.get(`${global.backend}/restaurant/get`)
             .then((data)=>{
                 if(data.data.status == "error")
                 {

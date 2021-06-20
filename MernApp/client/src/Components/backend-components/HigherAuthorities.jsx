@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import '../../css/higherauthorities.css';
+import '../global'
+
 class HigherAuthorities extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,7 @@ class HigherAuthorities extends Component {
         this.deleteAllBranches = this.deleteAllBranches.bind(this)
     }
     deleteAllRestaurants(){
-        axios.delete('/restaurant/deleteAll')
+        axios.delete(`${global.backend}/restaurant/deleteAll`)
         .then((data)=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
@@ -21,7 +23,7 @@ class HigherAuthorities extends Component {
         });
     }
     deleteAllBranches(){
-        axios.delete('/branch/deleteAll')
+        axios.delete(`${global.backend}/branch/deleteAll`)
         .then((data)=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
@@ -29,7 +31,7 @@ class HigherAuthorities extends Component {
         });
     }
     deleteAllAdmins(){
-        axios.delete('/admin/deleteAll')
+        axios.delete(`${global.backend}/admin/deleteAll`)
         .then((data)=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);
@@ -37,7 +39,7 @@ class HigherAuthorities extends Component {
         });
     }
     deleteAllRecipes(){
-        axios.delete('/recipe/deleteAll')
+        axios.delete(`${global.backend}/recipe/deleteAll`)
         .then(data=>{alert(data.data.message)})
         .catch((e)=>{
             alert(e);

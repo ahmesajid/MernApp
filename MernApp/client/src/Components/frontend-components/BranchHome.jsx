@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../css/branchhome.css";
 import DatePicker from "react-date-picker";
 import ReactHtmlParser from 'html-react-parser'; 
+import '../global'
 class Branch_Show extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +78,7 @@ class Branch_Show extends Component {
 
     try {
       axios
-        .post("/branch/add/reservation", sendData)
+        .post(`${global.backend}/branch/add/reservation`, sendData)
         .then((data) => {
           if (data.data.status) {
             alert(data.data.message);
@@ -94,7 +95,7 @@ class Branch_Show extends Component {
     
   }
   componentDidMount = () => {
-    axios.post("/branch/getdetails", { _id: this.state.selectedBranch })
+    axios.post(`${global.backend}/branch/getdetails`, { _id: this.state.selectedBranch })
       .then((data) => {
         if (!data.data.status) {
           console.log(data.data.message);
@@ -120,7 +121,7 @@ class Branch_Show extends Component {
         alert(e);
         console.log(e);
       });
-    axios.post("/recipe/get", { p_id: this.state.selectedBranch })
+    axios.post(`${global.backend}/recipe/get`, { p_id: this.state.selectedBranch })
       .then((data) => {
         if (!data.data.status) {
         } else if (data.data.status === 1) {
@@ -156,7 +157,7 @@ class Branch_Show extends Component {
             <div class="carousel-inner" role="listbox">
               {this.state.imgArr.map((fn, i) =>(<>
                 <div class={i==0?"carousel-item active":'carousel-item '} >
-                  <img class="hero-img" src={`/Images/Branches/${fn.fName}`} />
+                  <img class="hero-img" src={`${global.backend}/Images/Branches/${fn.fName}`} />
                 </div>
               </>))}
             </div>

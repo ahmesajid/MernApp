@@ -3,6 +3,8 @@ import axios from 'axios'
 import $ from "jquery"; 
 import AddAdmin from '../forms/AddAdmin'
 import "../../css/clock.css";
+import '../global'
+
 class Branch extends Component {
   constructor(props) {
     super(props);
@@ -52,7 +54,7 @@ class Branch extends Component {
       }
       //NOW SENDING ADD IMAGE REQUEST
       try {
-        axios.post('/branch/addImages' , formData , config)
+        axios.post(`${global.backend}/branch/addImages` , formData , config)
         .then((data)=>{
           if(data.data.status){
             alert("Images added successfuly!");
@@ -78,7 +80,7 @@ class Branch extends Component {
   componentDidMount(){
     try {
       console.log("in try catch")
-      axios.get('/restaurant/get')
+      axios.get(`${global.backend}/restaurant/get`)
       .then((data)=>{
           if(data.data.status == "error"){alert(data.data.message);}
           else if(data.data.status == "ok"){
@@ -161,7 +163,7 @@ addBranch=(e)=>{
 
       //SENDING POST REQUEST
       try {
-        axios.post('/branch/add' , addBranch)
+        axios.post(`${global.backend}/branch/add` , addBranch)
         .then((data)=>{
             if(data.data.status == "error")
             {

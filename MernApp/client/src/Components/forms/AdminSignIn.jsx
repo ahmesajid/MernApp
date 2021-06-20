@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import AdminDashboard from '../backend-components/AdminDashboard';
 import {Redirect} from "react-router-dom";
+import '../global'
+
 class AdminSignIn extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +26,7 @@ class AdminSignIn extends Component {
   submitFormData=(e)=>{
     e.preventDefault();
     try {
-      axios.post('/admin/signin',{gmail:this.state.email,password:this.state.password,getData:1,getData:1})
+      axios.post(`${global.backend}/admin/signin`,{gmail:this.state.email,password:this.state.password,getData:1,getData:1})
   .then((data)=>{
       if(data.data.status === "error")
       {

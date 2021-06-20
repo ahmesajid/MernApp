@@ -9,6 +9,7 @@ import '../../css/admindashboard.css';
 import AuthenticatedImage from '../../images/authenticated.png'
 import axios from 'axios';
 import {Redirect} from "react-router-dom";
+import '../global'
 
 class Manager extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Manager extends Component {
 removeCookie(){
   axios.defaults.withCredentials = true;
   try {
-    axios.post("/admin/remove/cookie")
+    axios.post(`${global.backend}/admin/remove/cookie`)
     .then((data)=>{
       if(data.data.isRemoved){
         this.setState({isLoggedIn:false,display:4,isAuthenticated:false})
@@ -47,7 +48,7 @@ getData= async()=>{
   // YOU CAN RUN 1 OR 2 BOTH ARE CORRECT
   //1
   axios.defaults.withCredentials = true;
-  axios.post("/admin/validate")
+  axios.post(`${global.backend}/admin/validate`)
   .then((data)=>{
     if(data.data.key === 1){
       this.setState({

@@ -14,6 +14,8 @@ import DeveloperSignIn from "../forms/DeveloperSignIn";
 import AuthenticatedImage from '../../images/authenticated.png'
 import AddRecommendations from "./AddRecommendations";
 import RemoveRecommendations from "./RemoveRecommendations";
+import '../global'
+
 class Developer extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class Developer extends Component {
     // YOU CAN RUN 1 OR 2 BOTH ARE CORRECT
     //1
     axios.defaults.withCredentials = true;
-    axios.post("/developer/validate")
+    axios.post(`${global.backend}/developer/validate`)
     .then((data)=>{
       if(data.data.isAuthenticated){this.setState({isAuthenticated:data.data.isAuthenticated,display:2});}
       else{this.setState({isAuthenticated:data.data.isAuthenticated,display:1,isLoggedIn:true});}
@@ -56,7 +58,7 @@ class Developer extends Component {
   removeCookie(){
     axios.defaults.withCredentials = true;
     try {
-      axios.post("/developer/remove/cookie")
+      axios.post(`${global.backend}/developer/remove/cookie`)
       .then((data)=>{
         if(data.data.isRemoved){
           this.setState({isLoggedIn:false,display:4,isAuthenticated:false})

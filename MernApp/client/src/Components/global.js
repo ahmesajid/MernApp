@@ -1,0 +1,1 @@
+global.backend = 'https://allahwasaya11799.herokuapp.com'

@@ -3,7 +3,7 @@ import "../../css/restaurantlistshow.css";
 import axios from 'axios'
 import SelectBranch from '../frontend-components/FilterBranch';
 import WaiterImage from '../../images/waiter.png';
-
+import '../global'
 class Rest extends Component {
   
     constructor(props) {
@@ -31,7 +31,7 @@ showHome(id){
 }
 showResults(e){
    //FETCHING RESTAURANT DATA
-   axios.post('/restaurant/getsingle' , {_id:e})
+   axios.post(`${global.backend}/restaurant/getsingle` , {_id:e})
    .then((data)=>{
        if(data.data.status == "error")
        {
@@ -57,7 +57,7 @@ onInputChange(){
 
    if(inputValue && inputValue.length>2 && (document.activeElement.id==="restaurant-search")){
      console.log(inputValue.length)
-       axios.post("/restaurant/search/get/names" , {name:inputValue})
+       axios.post(`${global.backend}/restaurant/search/get/names`, {name:inputValue})
        .then((res)=>{
            if(res.data.isResult){
                console.log("res fetched")
@@ -80,7 +80,7 @@ componentDidMount=()=>{
   })
     try {
         //FETCHING RESTAURANTS
-        axios.get('/restaurant/get')
+        axios.get(`${global.backend}/restaurant/get`)
         .then((data)=>{
             if(data.data.status == "error")
             {
@@ -116,7 +116,8 @@ render() {
   if(isParent && isLoaded){
     return (
       <>
-      <div className="search-holder form-control w-50 bg-secondary text-white mx-auto">
+      {global.backend}
+      <div className="search-holder form-control w-70 bg-secondary text-white mx-auto">
             <div><input className="form-control" id="restaurant-search"  onChange={this.onChange} placeholder="search your restaurant" onKeyDown={(e) => { if (e.key === "Backspace" && e.target.value.length==1) { this.onInputChange() }}} /></div>
               <div className="results-holder rounded shadow" id="results-holder">
 
@@ -124,7 +125,7 @@ render() {
                   this.state.restaurantNames.map((res , i)=>(
                       <div className=" d-flex flex-row justify-content-between p-1 m-1" style={{cursor:'pointer'}} id={res._id} onClick={this.showResults.bind(this , res._id)}>
                           <div style={{fontFamily:'sans-serif',letterSpacing:2,fontWeight:'bold',fontSize:15}} >{res.name}</div>
-                          <div><img src={`/Images/Restaurants/${res.fName}`} style={{width:'5vw',height:'5vh'}}/></div>
+                          <div><img src={`${global.backend}/Images/Restaurants/${res.fName}`} style={{width:'5vw',height:'5vh'}}/></div>
                       </div>
                   )):''}
           </div>
@@ -135,7 +136,7 @@ render() {
           <div className="row justify-content-around">
             {this.state.searchResults.map((rs) => (
               <div class="col-md-3 p-2 m-2 shadow bg-dark text-white card rounded" style={{width:'30rem'}} style={{cursor:'pointer'}}>
-                <img class="card-img-top border-dark" src={`/Images/Restaurants/${rs.fName}`} alt="Card image cap" id={rs._id} onClick={this.showHome.bind(this , rs._id)}/>
+                <img class="card-img-top border-dark" src={`${global.backend}/Images/Restaurants/${rs.fName}`} alt="Card image cap" id={rs._id} onClick={this.showHome.bind(this , rs._id)}/>
                 <div class="card-body">
                   <h2 className="res-name-hover" style={{letterSpacing:2,fontFamily:'sans-serif'}}>{rs.name}</h2>
                   <p className="small" style={{letterSpacing:1,fontFamily:'sans-serif',color:'blue'}}>branches{rs.branches}</p>

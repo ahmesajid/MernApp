@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import '../../css/deleteRestaurant.css';
+import '../global'
+
 class Restaurant extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ class Restaurant extends Component {
       }
     };
     try {
-      axios.post("/restaurant/upload",formData,config)
+      axios.post(`${global.backend}/restaurant/upload`,formData,config)
             .then((response) => {
               console.log(response.data)
                 this.setState({
@@ -69,7 +71,7 @@ addRestaurant(e){
     };
     console.log(sendData)
     try {
-        axios.post('/restaurant/add' , sendData)
+        axios.post(`${global.backend}/restaurant/add` , sendData)
         .then((data)=>{
             if(data.data.status == "error")
             {

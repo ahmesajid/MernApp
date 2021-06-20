@@ -4,6 +4,8 @@ import axios from 'axios';
 import $ from 'jquery';
 import WaiterImage from '../../images/waiter.png';
 import Loader from 'react-loader-spinner';
+import '../global'
+
 class FilterBranch extends Component {
  constructor(props) {
    super(props);
@@ -42,7 +44,7 @@ class FilterBranch extends Component {
  }
  getChangeBehaviour=()=>{
   const selectedCity = document.getElementById("custom-select-1").value;
-  axios.post('/restaurant/branches',{name:selectedCity , id:this.state.resData[0]._id})
+  axios.post(`${global.backend}/restaurant/branches`,{name:selectedCity , id:this.state.resData[0]._id})
   .then((data)=>{
       if(data.data.status == "error")
       {
@@ -69,7 +71,7 @@ class FilterBranch extends Component {
     })
     // GET CITIES IN WHICH RESTAURANT BRANCHES ARE
     try {
-      axios.post('/restaurant/cities',{res:this.props.resId})
+      axios.post(`${global.backend}/restaurant/cities`,{res:this.props.resId})
           .then((data)=>{
               if(data.data.status == "error")
               {
@@ -100,7 +102,7 @@ class FilterBranch extends Component {
               console.log(e);
           });
       //FETCHING RESTAURANT DATA
-      axios.post('/restaurant/getsingle' , {_id:this.props.resId})
+      axios.post(`${global.backend}/restaurant/getsingle` , {_id:this.props.resId})
       .then((data)=>{
           if(data.data.status == "error")
           {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import $ from "jquery";
+import '../global'
 
 class AddRecommendations extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ AddRecommendation(e){
     e.preventDefault();
     var branchIdSelected = $('#custom-select-branches option:selected').val()       
     console.log(branchIdSelected) 
-    axios.post('/recommendation/add',{b_id:branchIdSelected})
+    axios.post(`${global.backend}/recommendation/add`,{b_id:branchIdSelected})
     .then((data)=>{
         if(!data.data.status)
         {
@@ -40,7 +41,7 @@ changeRestaurantBranches(e){
     if(!restaurantId){this.setState({branches:null})}
     else{
         try {
-            axios.post('/restaurant/cities',{res:restaurantId})
+            axios.post(`${global.backend}/restaurant/cities`,{res:restaurantId})
             .then((data)=>{
                 if(data.data.status == "error")
                 {
@@ -66,7 +67,7 @@ changeRestaurantBranches(e){
 }
 componentDidMount=()=>{
     try {
-        axios.get('/restaurant/get')
+        axios.get(`${global.backend}/restaurant/get`)
             .then((data)=>{
                 if(data.data.status == "error")
                 {

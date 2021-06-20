@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import '../../css/deleteRestaurant.css';
+import '../global'
+
 class DeleteRestaurant extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,7 @@ class DeleteRestaurant extends Component {
   }
   componentDidMount=()=>{
     try {
-        axios.get('/restaurant/get')
+        axios.get(`${global.backend}/restaurant/get`)
             .then((data)=>{
                 if(data.data.status == "error")
                 {
@@ -38,7 +40,7 @@ deleteRestaurant(e){
   e.preventDefault();
   const selectedRes = document.getElementById("custom-select-1").value;
   if(selectedRes){
-    axios.post('/restaurant/delete',{resId:selectedRes})
+    axios.post(`${global.backend}/restaurant/delete`,{resId:selectedRes})
     .then((data)=>{
         if(data.data.status == "error")
         {

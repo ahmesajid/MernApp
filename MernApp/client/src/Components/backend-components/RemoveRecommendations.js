@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import $ from "jquery";
+import '../global'
 
 class RemoveRecommendation extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ RemoveRecommendation(e){
     e.preventDefault();
     var branchIdSelected = $('#custom-select-branches option:selected').val()       
     console.log(branchIdSelected) 
-    axios.post('/recommendation/delete',{_id:branchIdSelected})
+    axios.post(`${global.backend}/recommendation/delete`,{_id:branchIdSelected})
     .then((data)=>{
         if(!data.data.status)
         {
@@ -33,7 +34,7 @@ RemoveRecommendation(e){
 }
 componentDidMount=()=>{
     try {
-        axios.get('/recommendation/branch/get')
+        axios.get(`${global.backend}/recommendation/branch/get`)
             .then((data)=>{
                 if(!data.data.status )
                 {

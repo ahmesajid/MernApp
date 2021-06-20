@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import '../global'
+
 class ManagerReport extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class ManagerReport extends Component {
     try {
       //FETCHING RESTAURANTS
       axios
-        .get("/issue/get/admin")
+        .get(`${global.backend}/issue/get/admin`)
         .then((data) => {
           if (data.data.status == "error") {
             // alert(data.data.message);

@@ -3,6 +3,7 @@ import axios from 'axios'
 import $ from "jquery"; 
 import "../../css/clock.css";
 import '../../css/deleteBranch.css';
+import '../global'
 class Branch extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ changeRestaurantBranches(e){
       }))
   }
   else{
-      axios.post('/restaurant/cities',{res:restaurantId})
+      axios.post(`${global.backend}/restaurant/cities`,{res:restaurantId})
       .then((data)=>{
           if(data.data.status == "error")
           {
@@ -50,7 +51,7 @@ deleteBranch(e){
   const selectedRes = document.getElementById("custom-select-restaurant").value;
   const selectedBranch = document.getElementById("custom-select-branches").value;
   if(selectedRes && selectedBranch){
-    axios.post('/branch/delete',{bId:selectedBranch , pId:selectedRes})
+    axios.post(`${global.backend}/branch/delete`,{bId:selectedBranch , pId:selectedRes})
     .then((data)=>{
         if(data.data.status == "error")
         {
@@ -71,7 +72,7 @@ deleteBranch(e){
 }
 componentDidMount=()=>{
     try {
-        axios.get('/restaurant/get')
+        axios.get(`${global.backend}/restaurant/get`)
             .then((data)=>{
                 if(data.data.status == "error")
                 {

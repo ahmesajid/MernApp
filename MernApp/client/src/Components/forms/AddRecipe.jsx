@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../global'
+
 class AddRecipe extends Component {
 
 
@@ -65,7 +67,7 @@ class AddRecipe extends Component {
 
         // ADDING RECIPE
         try {
-            axios.post('/recipe/add' , addRecipe)
+            axios.post(`${global.backend}/recipe/add` , addRecipe)
             .then((data)=>{
             if(data.data.status == "error")
             {

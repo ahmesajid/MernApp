@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import DeveloperDashboard from '../backend-components/DeveloperDashboard'
 import { Route, Switch , Link ,Redirect} from "react-router-dom";
+import '../global'
 
 class DeveloperSignIn extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class DeveloperSignIn extends Component {
   submitFormData=(e)=>{
     e.preventDefault();
     try {
-      axios.post('/developer/signin',{gmail:this.state.email,password:this.state.password})
+      axios.post(`${global.backend}/developer/signin`,{gmail:this.state.email,password:this.state.password})
   .then((data)=>{
       if(data.data.status == "error")
       {

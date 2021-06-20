@@ -6,6 +6,7 @@ import { CalendarComponent } from "@syncfusion/ej2-react-calendars";
 import style from '../../css/D_Dashboard.module.css';
 import axios from 'axios';
 import AnalyticImage from '../../images/analytics.png'
+import '../global'
 
 export default class D_Dashboard extends React.Component {
   // var =null;
@@ -144,11 +145,11 @@ export default class D_Dashboard extends React.Component {
     this.setState({todoText:e.target.value})
   }
   deleteTodo(){
-    axios.post("/todo/delete" , {delId:this.state.delId}).
+    axios.post(`${global.backend}/todo/delete` , {delId:this.state.delId}).
     then(res=>console.log(res.data.message)).
     catch(err=>console.log(err))
 
-    axios.get("/todo/get").
+    axios.get(`${global.backend}/todo/get`).
     then((res)=>{
       this.setState({todoData:res.data.todoData})
       console.log(res.data.todoData)
@@ -161,11 +162,11 @@ export default class D_Dashboard extends React.Component {
     })
   }
   addTodo(){
-    axios.post("/todo/post" , {todoText:this.state.todoText}).
+    axios.post(`${global.backend}/todo/post` , {todoText:this.state.todoText}).
     then(res=>console.log(res.data.message)).
     catch(err=>console.log(err))
 
-    axios.get("/todo/get").
+    axios.get(`${global.backend}/todo/get`).
     then((res)=>{
       this.setState({todoData:res.data.todoData})
       console.log(res.data.todoData)
@@ -174,13 +175,13 @@ export default class D_Dashboard extends React.Component {
   }
   componentDidMount(){
     try {
-      axios.get("/todo/get").
+      axios.get(`${global.backend}/todo/get`).
       then((res)=>{
         this.setState({todoData:res.data.todoData})
       }).
       catch(err=>console.log(err))
 
-      axios.get('/counts/all')
+      axios.get(`${global.backend}/counts/all`)
       .then((res)=>{
         if(res.data){
           this.setState({

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import '../global'
+
 class ProfileBranch extends Component {
   constructor(props){
     super(props);
@@ -21,7 +23,7 @@ class ProfileBranch extends Component {
     this.setState({isReservations:true,isHome:false});
   }
   componentDidMount(){
-    axios.post('/reservation/get/id' , {id:this.state.adminId})
+    axios.post(`${global.backend}/reservation/get/id` , {id:this.state.adminId})
     .then((data)=>{
       if(data.data.status){
         this.setState({

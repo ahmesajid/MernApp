@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import '../global'
+
 class DeleteRecipe extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ class DeleteRecipe extends Component {
     //RECIPE ID TO DELETE
     const rec = document.getElementById("custom-select")
     try {
-      axios.post('/recipe/delete' , {_id:rec.value})
+      axios.post(`${global.backend}/recipe/delete` , {_id:rec.value})
       .then((data)=>{
       if(!data.data.status)
       {
@@ -36,7 +38,7 @@ class DeleteRecipe extends Component {
 
   }
   componentDidMount=()=>{
-    axios.post('/recipe/get',{p_id:this.props.bData[0]._id})
+    axios.post(`${global.backend}/recipe/get`,{p_id:this.props.bData[0]._id})
     .then((data)=>{
         if(!data.data.status)
         {
