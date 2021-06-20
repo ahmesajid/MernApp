@@ -10,11 +10,33 @@ const Admins = require('../models/admin/branchAdmin');
 const Recommendations = require('../models/recommendations')
 
 const multer = require("multer");
-const isRes =async()=>{
-   
-}
 
-isRes();
+router.post("/restaurant/search/get/names" , async(req,res)=>{
+    const {name} = req.body
+    try {
+        const restaurantNames = await Restaurants.find({name: {$regex: name, $options: "$i"}} , {name:1 , fName:1}).limit(5)
+        console.log(restaurantNames)
+        restaurantNames.length?res.send({restaurantNames,isResult:true}):res.send({isResult:false})
+    } catch (error) {console.log(error) , res.send({isResult:false})}
+})
+router.post("/restaurant/getsingle" , async(req,res)=>{
+    try {
+        console.log(req.body);
+    
+        const resData = await Restaurants.find(req.body);
+            console.log(resData);
+            res.send({
+                status:"ok" ,
+                res:resData
+            });
+    } catch (error) {
+        console.log("Error occured getting restaurant : " + error);
+        res.send({
+            status:"error",
+            message:"Error occured getting restaurant !**"
+        });
+    }
+    });
 router.post("/restaurant/upload", (req,res)=>{
     const storage = multer.diskStorage({
         destination: path.join(__dirname,"../../public/Images/Restaurants/"),
@@ -57,6 +79,42 @@ router.delete("/restaurant/deleteAll" ,async(req,res)=>{
             res.send({message});
         }   
     })
+router.post("/restaurant/getsingle" , async(req,res)=>{
+    try {
+        console.log(req.body);
+    
+        const resData = await Restaurants.find(req.body);
+            console.log(resData);
+            res.send({
+                status:"ok" ,
+                res:resData
+            });
+    } catch (error) {
+        console.log("Error occured getting restaurant : " + error);
+        res.send({
+            status:"error",
+            message:"Error occured getting restaurant !**"
+        });
+    }
+    });
+router.post("/restaurant/getsingle" , async(req,res)=>{
+    try {
+        console.log(req.body);
+    
+        const resData = await Restaurants.find(req.body);
+            console.log(resData);
+            res.send({
+                status:"ok" ,
+                res:resData
+            });
+    } catch (error) {
+        console.log("Error occured getting restaurant : " + error);
+        res.send({
+            status:"error",
+            message:"Error occured getting restaurant !**"
+        });
+    }
+    });
 router.post("/restaurant/getsingle" , async(req,res)=>{
     try {
         console.log(req.body);

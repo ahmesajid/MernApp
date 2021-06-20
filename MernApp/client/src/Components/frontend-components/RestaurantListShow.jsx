@@ -15,26 +15,66 @@ class Rest extends Component {
           restaurantData:[] , 
           restaurantId:null,
           isLoaded:false,
-          button:'<button type="btn" class="btn btn-info">Click</button>'
+          restaurantNames:null,
+          count:0,
+          searchResults:null
       }
-      this.goBack = this.goBack.bind(this);
+      this.onChange = this.onInputChange.bind(this);
   }
-  goBack(){
-    this.setState({
-      isParent :true ,
-      isChild :false 
-  })
-  }
-showHome(id){
   
+showHome(id){
   this.setState({
       isParent :false ,
       isChild :true ,
       restaurantId:id
   })
 }
+showResults(e){
+   //FETCHING RESTAURANT DATA
+   axios.post('/restaurant/getsingle' , {_id:e})
+   .then((data)=>{
+       if(data.data.status == "error")
+       {
+           console.log(data.data.message);
+       }
+       else if(data.data.status == "ok")
+       {
+           this.setState({
+               searchResults:data.data.res
+           })
+           console.log(this.state.searchResults);
+       }
+   })
+   .catch((e)=>{
+       alert(e);
+       console.log(e);
+   });
+}
+onInputChange(){
+   //RESTAURANT FILTERED RESULTS
+   const inpElem = document.getElementById("restaurant-search")
+   const inputValue = inpElem.value.trim()
+
+   if(inputValue && inputValue.length>2 && (document.activeElement.id==="restaurant-search")){
+     console.log(inputValue.length)
+       axios.post("/restaurant/search/get/names" , {name:inputValue})
+       .then((res)=>{
+           if(res.data.isResult){
+               console.log("res fetched")
+               this.setState({restaurantNames:res.data.restaurantNames,count:inputValue.length})
+           }
+           else{
+               console.log("res not fetched")
+               this.setState({restaurantNames:null ,count:0})
+           }
+       })
+       .catch(err=>console.log(err))
+   }else {
+    this.setState({restaurantNames:null,isRestaurantNames:false,count:0,searchResults:null})
+   }
+   //RESTAURANT FILTERED RESULTS ENDS
+}
 componentDidMount=()=>{
-  this.goBack();
   this.setState({
     resData:[]
   })
@@ -66,25 +106,63 @@ componentDidMount=()=>{
      catch (error) {
         console.log(error);
       }
+
+
+
+     
 }
 render() {
-  const {isChild , isParent , isLoaded} = this.state;
+  const {isChild , isParent , isLoaded , restaurantNames} = this.state;
   if(isParent && isLoaded){
     return (
-      <div className="container mt-4 mb-4 p-2 bg-light"> <div className="d-flex justify-content-center mb-4"><span style={{letterSpacing:2,fontFamily:'sans-serif',fontSize:40,color:'darkslategrey',fontWeight:'bold'}}>Restaurant Cards</span></div>
-        <div className="row justify-content-around">
-          {this.state.restaurantData.map((rs) => (
-            <div class="col-md-3 p-2 m-2 shadow bg-dark text-white card rounded" style={{width:'30rem'}} style={{cursor:'pointer'}}>
-              <img class="card-img-top border-dark" src={`/Images/Restaurants/${rs.fName}`} alt="Card image cap" id={rs._id} onClick={this.showHome.bind(this , rs._id)}/>
-              <div class="card-body">
-                <h2 className="res-name-hover" style={{letterSpacing:2,fontFamily:'sans-serif'}}>{rs.name}</h2>
-                <p className="small" style={{letterSpacing:1,fontFamily:'sans-serif',color:'blue'}}>branches{rs.branches}</p>
-                <p class="card-text" style={{letterSpacing:1}}>{rs.description}</p>
+      <>
+      <div className="search-holder form-control w-50 bg-secondary text-white mx-auto">
+            <div><input className="form-control" id="restaurant-search"  onChange={this.onChange} placeholder="search your restaurant" onKeyDown={(e) => { if (e.key === "Backspace" && e.target.value.length==1) { this.onInputChange() }}} /></div>
+              <div className="results-holder rounded shadow" id="results-holder">
+
+                  {this.state.count !=0?
+                  this.state.restaurantNames.map((res , i)=>(
+                      <div className=" d-flex flex-row justify-content-between p-1 m-1" style={{cursor:'pointer'}} id={res._id} onClick={this.showResults.bind(this , res._id)}>
+                          <div style={{fontFamily:'sans-serif',letterSpacing:2,fontWeight:'bold',fontSize:15}} >{res.name}</div>
+                          <div><img src={`/Images/Restaurants/${res.fName}`} style={{width:'5vw',height:'5vh'}}/></div>
+                      </div>
+                  )):''}
+          </div>
+        </div>
+
+        {this.state.searchResults?
+        <div className="container mt-4 mb-4 p-2 bg-light"> <div className="d-flex justify-content-center mb-4"><span style={{letterSpacing:2,fontFamily:'sans-serif',fontSize:40,color:'darkslategrey',fontWeight:'bold'}}>Restaurant Cards</span></div>
+          <div className="row justify-content-around">
+            {this.state.searchResults.map((rs) => (
+              <div class="col-md-3 p-2 m-2 shadow bg-dark text-white card rounded" style={{width:'30rem'}} style={{cursor:'pointer'}}>
+                <img class="card-img-top border-dark" src={`/Images/Restaurants/${rs.fName}`} alt="Card image cap" id={rs._id} onClick={this.showHome.bind(this , rs._id)}/>
+                <div class="card-body">
+                  <h2 className="res-name-hover" style={{letterSpacing:2,fontFamily:'sans-serif'}}>{rs.name}</h2>
+                  <p className="small" style={{letterSpacing:1,fontFamily:'sans-serif',color:'blue'}}>branches{rs.branches}</p>
+                  <p class="card-text" style={{letterSpacing:1}}>{rs.description}</p>
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
-      </div>
+             ))}
+          </div>
+        </div>
+        :
+        <div className="container mt-4 mb-4 p-2 bg-light"> <div className="d-flex justify-content-center mb-4"><span style={{letterSpacing:2,fontFamily:'sans-serif',fontSize:40,color:'darkslategrey',fontWeight:'bold'}}>Restaurant Cards</span></div>
+          <div className="row justify-content-around">
+            {this.state.restaurantData.map((rs) => (
+              <div class="col-md-3 p-2 m-2 shadow bg-dark text-white card rounded" style={{width:'30rem'}} style={{cursor:'pointer'}}>
+                <img class="card-img-top border-dark" src={`/Images/Restaurants/${rs.fName}`} alt="Card image cap" id={rs._id} onClick={this.showHome.bind(this , rs._id)}/>
+                <div class="card-body">
+                  <h2 className="res-name-hover" style={{letterSpacing:2,fontFamily:'sans-serif'}}>{rs.name}</h2>
+                  <p className="small" style={{letterSpacing:1,fontFamily:'sans-serif',color:'blue'}}>branches{rs.branches}</p>
+                  <p class="card-text" style={{letterSpacing:1}}>{rs.description}</p>
+                </div>
+              </div>
+            ))}
+        </div>
+        </div>
+        }
+       
+      </>
     );
   }else if(isChild && isLoaded){
    return(
