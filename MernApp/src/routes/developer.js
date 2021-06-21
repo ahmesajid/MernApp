@@ -31,7 +31,7 @@ try {
         console.log(token);
         res.cookie("isDevSignIn",token,{
             expires:false,
-            maxAge:86400000
+            maxAge:86400000,
         });
         res.send({
             status:1,
